@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CinematicStill } from "@/components/CinematicStill";
-import { type Project, featuredProject, projects, site, verticalProject } from "@/lib/content";
+import { type Project, featuredProject, projects, site, verticalProjects } from "@/lib/content";
 
 function youtubeSrc(id: string) {
   return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
@@ -78,8 +78,9 @@ function ProjectCover({ project }: { project: Project }) {
 
 export function Work() {
   const [active, setActive] = useState<Project | null>(null);
+  const verticalIds = new Set(verticalProjects.map((project) => project.id));
   const rest = projects.filter(
-    (project) => project.id !== featuredProject.id && project.id !== verticalProject?.id,
+    (project) => project.id !== featuredProject.id && !verticalIds.has(project.id),
   );
 
   useEffect(() => {
@@ -163,8 +164,11 @@ export function Work() {
           </div>
         </article>
 
-        {verticalProject ? (
-          <article className="mt-8 overflow-hidden border border-white/10 bg-ink-soft">
+        {verticalProjects.map((verticalProject) => (
+          <article
+            key={verticalProject.id}
+            className="mt-8 overflow-hidden border border-white/10 bg-ink-soft"
+          >
             <div className="grid gap-8 lg:grid-cols-[minmax(0,280px)_1fr] lg:items-center">
               <div className="relative mx-auto aspect-[9/16] w-full max-w-[280px] bg-black">
                 <ProjectPlayer project={verticalProject} />
@@ -189,9 +193,7 @@ export function Work() {
                   <button
                     type="button"
                     className="timecode border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink hover:bg-gold-bright"
-                    onClick={() => {
-                      if (verticalProject) setActive(verticalProject);
-                    }}
+                    onClick={() => setActive(verticalProject)}
                   >
                     Watch full screen
                   </button>
@@ -209,7 +211,7 @@ export function Work() {
               </div>
             </div>
           </article>
-        ) : null}
+        ))}
 
         <ul className="mt-8 grid gap-5 md:grid-cols-2">
           {rest.map((project) => (

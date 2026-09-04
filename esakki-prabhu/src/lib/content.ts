@@ -97,8 +97,31 @@ export const projects: Project[] = [
     resourcesLabel: "View resources",
   },
   {
-    id: "wedding",
+    id: "admit-scholar",
     number: "03",
+    title: "Admit Scholar",
+    category: "Education brand reel",
+    runtime: "00:43",
+    format: "9:16",
+    grade: "Clean interview / social-ready",
+    tagline: "A face, a dream school, and a cut that sells the next step.",
+    logline:
+      "A vertical Admit Scholar reel — interview energy, university stakes, and a phone-first finish.",
+    blurb:
+      "A short vertical for Admit Scholar — student voice, MIT-scale ambition, and a grade that stays clean on Reels.",
+    body: [
+      "The cut keeps the talker in the frame and the brand in the story. Titles and logos land without drowning the interview.",
+      "Edited and mixed in DaVinci Resolve for Instagram and paid social — 9:16, paced to hold a thumb-stop.",
+    ],
+    role: "Editor · Color · Titles · Mix",
+    videoSrc: "/videos/admit-scholar.mp4",
+    poster: "/videos/admit-scholar-poster.jpg",
+    youtubeId: "",
+    resourcesLabel: "View resources",
+  },
+  {
+    id: "wedding",
+    number: "04",
     title: "Wedding Films",
     category: "Documentary romance",
     runtime: "04:20",
@@ -109,7 +132,7 @@ export const projects: Project[] = [
   },
   {
     id: "music",
-    number: "04",
+    number: "05",
     title: "Music Videos",
     category: "Performance",
     runtime: "03:12",
@@ -120,7 +143,7 @@ export const projects: Project[] = [
   },
   {
     id: "short",
-    number: "05",
+    number: "06",
     title: "Short Films",
     category: "Narrative",
     runtime: "12:00",
@@ -131,7 +154,7 @@ export const projects: Project[] = [
   },
   {
     id: "event",
-    number: "06",
+    number: "07",
     title: "Events & Recaps",
     category: "Live",
     runtime: "02:30",
@@ -143,7 +166,9 @@ export const projects: Project[] = [
 ];
 
 export const featuredProject = projects.find((project) => project.featured) ?? projects[0];
-export const verticalProject = projects.find((project) => project.format === "9:16");
+export const verticalProjects = projects.filter((project) => project.format === "9:16");
+/** @deprecated Prefer verticalProjects — kept for any leftover single-project usage */
+export const verticalProject = verticalProjects[0];
 
 export const services = [
   {
