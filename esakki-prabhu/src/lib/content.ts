@@ -117,6 +117,8 @@ export const projects: Project[] = [
     videoSrc: "/videos/admit-scholar.mp4",
     poster: "/videos/admit-scholar-poster.jpg",
     youtubeId: "",
+    resourcesUrl:
+      "https://drive.google.com/file/d/1b9Fdm5S8Jz2mZzoRserR98RWF-dVH-PW/view?usp=sharing",
     resourcesLabel: "View resources",
   },
   {
