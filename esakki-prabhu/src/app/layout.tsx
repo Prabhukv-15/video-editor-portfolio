@@ -45,6 +45,7 @@ export const metadata: Metadata = {
     "Tamil Nadu",
     "nature film",
     "Our Earth",
+    "Richwood Interior",
     site.name,
   ],
   authors: [{ name: site.name, url: getSiteUrl() }],

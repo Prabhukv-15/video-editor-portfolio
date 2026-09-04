@@ -66,25 +66,36 @@ export const projects: Project[] = [
     youtubeId: "",
   },
   {
-    id: "wedding",
+    id: "richwood",
     number: "02",
+    title: "Richwood Interior",
+    category: "Brand film",
+    runtime: "01:12",
+    format: "9:16",
+    grade: "Warm wood / skin-true",
+    tagline: "Wood first. Then the room. Then the man who builds it.",
+    logline:
+      "A one-minute vertical brand film for Richwood Interior — wood, space, and the person behind the work.",
+    blurb:
+      "A founder film for an interior brand — warm, still, and built for the phone.",
+    body: [
+      "The cut keeps the grain in frame and the voice in the room. No empty luxury montage. Interview, space, and a grade that holds skin against teak and light.",
+      "Edited and mixed in DaVinci Resolve. Made for reels, ads, and brand pages that need a space to feel lived-in.",
+    ],
+    role: "Editor · Color · Sound",
+    videoSrc: "/videos/richwood-interior.mp4",
+    poster: "/videos/richwood-poster.jpg",
+    youtubeId: "",
+  },
+  {
+    id: "wedding",
+    number: "03",
     title: "Wedding Films",
     category: "Documentary romance",
     runtime: "04:20",
     grade: "Warm tungsten / skin-true",
     blurb:
       "Quiet glances, crowded halls, and the cut that lets a vow land. Built for families who want a film, not a highlight dump.",
-    youtubeId: "",
-  },
-  {
-    id: "brand",
-    number: "03",
-    title: "Brand & Commercial",
-    category: "Campaign",
-    runtime: "00:45",
-    grade: "Clean product / high contrast",
-    blurb:
-      "Product, founder, and city films with a tight narrative spine. Color that sells without shouting.",
     youtubeId: "",
   },
   {
@@ -123,6 +134,7 @@ export const projects: Project[] = [
 ];
 
 export const featuredProject = projects.find((project) => project.featured) ?? projects[0];
+export const verticalProject = projects.find((project) => project.format === "9:16");
 
 export const services = [
   {

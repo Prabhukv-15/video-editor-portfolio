@@ -1,5 +1,6 @@
 const grades: Record<string, { a: string; b: string; c: string; wash: string }> = {
   earth: { a: "#07140f", b: "#1f4a38", c: "#d7c49a", wash: "rgba(80, 140, 90, 0.22)" },
+  richwood: { a: "#2a1c12", b: "#8a5a32", c: "#e8d2b0", wash: "rgba(200, 140, 70, 0.22)" },
   wedding: { a: "#3b2416", b: "#c48a4a", c: "#f0d7a8", wash: "rgba(255, 180, 90, 0.28)" },
   brand: { a: "#0c1218", b: "#1c3d4a", c: "#d7e4ea", wash: "rgba(90, 160, 190, 0.22)" },
   music: { a: "#140814", b: "#7a1f5a", c: "#3ad0c8", wash: "rgba(255, 40, 120, 0.25)" },

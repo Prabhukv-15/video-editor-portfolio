@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CinematicStill } from "@/components/CinematicStill";
-import { type Project, featuredProject, projects, site } from "@/lib/content";
+import { type Project, featuredProject, projects, site, verticalProject } from "@/lib/content";
 
 function youtubeSrc(id: string) {
   return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
@@ -13,10 +13,12 @@ function hasPlayableMedia(project: Project) {
 }
 
 function ProjectPlayer({ project, autoPlay = false }: { project: Project; autoPlay?: boolean }) {
+  const fit = project.format === "9:16" ? "object-contain" : "object-cover";
+
   if (project.videoSrc) {
     return (
       <video
-        className="h-full w-full object-cover"
+        className={`h-full w-full bg-black ${fit}`}
         src={project.videoSrc}
         poster={project.poster}
         controls
@@ -52,13 +54,15 @@ function ProjectPlayer({ project, autoPlay = false }: { project: Project; autoPl
 }
 
 function ProjectCover({ project }: { project: Project }) {
+  const fit = project.format === "9:16" ? "object-contain bg-black" : "object-cover";
+
   if (project.poster) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={project.poster}
         alt=""
-        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+        className={`h-full w-full transition-transform duration-700 group-hover:scale-[1.04] ${fit}`}
       />
     );
   }
@@ -74,7 +78,9 @@ function ProjectCover({ project }: { project: Project }) {
 
 export function Work() {
   const [active, setActive] = useState<Project | null>(null);
-  const rest = projects.filter((project) => project.id !== featuredProject.id);
+  const rest = projects.filter(
+    (project) => project.id !== featuredProject.id && project.id !== verticalProject?.id,
+  );
 
   useEffect(() => {
     if (!active) return;
@@ -145,6 +151,42 @@ export function Work() {
           </div>
         </article>
 
+        {verticalProject ? (
+          <article className="mt-8 overflow-hidden border border-white/10 bg-ink-soft">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,280px)_1fr] lg:items-center">
+              <div className="relative mx-auto aspect-[9/16] w-full max-w-[280px] bg-black">
+                <ProjectPlayer project={verticalProject} />
+              </div>
+              <div className="px-5 pb-8 sm:px-8 lg:py-10 lg:pr-10">
+                <p className="timecode text-[11px] tracking-[0.24em] text-gold">
+                  {verticalProject.number} · {verticalProject.category} · {verticalProject.runtime} ·{" "}
+                  {verticalProject.format}
+                </p>
+                <h3 className="display mt-3 text-4xl sm:text-6xl">{verticalProject.title}</h3>
+                <p className="mt-4 text-lg text-gold-bright">{verticalProject.tagline}</p>
+                <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{verticalProject.blurb}</p>
+                {verticalProject.body?.map((paragraph) => (
+                  <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
+                    {paragraph}
+                  </p>
+                ))}
+                <p className="timecode mt-6 text-[11px] tracking-[0.18em] text-gold">
+                  {verticalProject.role}
+                </p>
+                <button
+                  type="button"
+                  className="timecode mt-6 border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink hover:bg-gold-bright"
+                  onClick={() => {
+                    if (verticalProject) setActive(verticalProject);
+                  }}
+                >
+                  Watch full screen
+                </button>
+              </div>
+            </div>
+          </article>
+        ) : null}
+
         <ul className="mt-8 grid gap-5 md:grid-cols-2">
           {rest.map((project) => (
             <li key={project.id}>
@@ -190,13 +232,19 @@ export function Work() {
           role="presentation"
         >
           <div
-            className="max-h-[90vh] w-full max-w-4xl overflow-auto border border-white/15 bg-ink"
+            className={`max-h-[90vh] w-full overflow-auto border border-white/15 bg-ink ${
+              active.format === "9:16" ? "max-w-md" : "max-w-4xl"
+            }`}
             onClick={(event) => event.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-labelledby="project-title"
           >
-            <div className="relative aspect-video bg-black">
+            <div
+              className={`relative bg-black ${
+                active.format === "9:16" ? "mx-auto aspect-[9/16] max-h-[70vh]" : "aspect-video"
+              }`}
+            >
               <ProjectPlayer project={active} autoPlay={hasPlayableMedia(active)} />
             </div>
             <div className="px-6 py-6 sm:px-8">
