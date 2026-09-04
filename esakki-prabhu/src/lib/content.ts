@@ -7,7 +7,7 @@ export const site = {
   tagline: "I cut stories that stay with you.",
   tamilLine: "கதைக்கு ரிதம். உணர்வுக்கு நிறம்.",
   summary:
-    "DaVinci Resolve editor shaping commercials, films, weddings, and brand stories — paced for feeling, graded for memory.",
+    "DaVinci Resolve editor shaping commercials, films, and brand stories — paced for feeling, graded for memory.",
   location: "Tamil Nadu, India",
   email: "esakkipraphuk@gmail.com",
   availability: "Open for 2026 commissions",
@@ -28,14 +28,44 @@ export type Project = {
   runtime: string;
   grade: string;
   blurb: string;
-  /** YouTube video ID. Leave empty until the reel is ready. */
   youtubeId: string;
+  videoSrc?: string;
+  poster?: string;
+  featured?: boolean;
+  logline?: string;
+  tagline?: string;
+  body?: string[];
+  role?: string;
+  format?: string;
 };
 
 export const projects: Project[] = [
   {
-    id: "wedding",
+    id: "earth",
     number: "01",
+    title: "Our Earth",
+    category: "Cinematic nature short",
+    runtime: "03:24",
+    format: "16:9",
+    grade: "Picture · Sound · Titles · Fairlight",
+    tagline: "One planet. Millions of lives. One home.",
+    logline:
+      "A 3-minute cinematic short about the Earth we share — and the silence after we forget it is ours.",
+    blurb:
+      "A film that lets the world speak — then asks what happens when we stop listening.",
+    body: [
+      "From first light to deep ocean, the cut follows a single chain of life. Then the picture goes black. Human noise enters. What remains is a question: this was always our home. Did we forget?",
+      "Edited and mixed in DaVinci Resolve — picture, sound, titles, Fairlight. Built for brands, campaigns, and creators who want nature with emotion, not a lecture.",
+    ],
+    role: "Editor · Sound · Titles · Mix",
+    videoSrc: "/videos/our-earth.mp4",
+    poster: "/videos/our-earth-poster.jpg",
+    featured: true,
+    youtubeId: "",
+  },
+  {
+    id: "wedding",
+    number: "02",
     title: "Wedding Films",
     category: "Documentary romance",
     runtime: "04:20",
@@ -46,7 +76,7 @@ export const projects: Project[] = [
   },
   {
     id: "brand",
-    number: "02",
+    number: "03",
     title: "Brand & Commercial",
     category: "Campaign",
     runtime: "00:45",
@@ -57,7 +87,7 @@ export const projects: Project[] = [
   },
   {
     id: "music",
-    number: "03",
+    number: "04",
     title: "Music Videos",
     category: "Performance",
     runtime: "03:12",
@@ -68,24 +98,13 @@ export const projects: Project[] = [
   },
   {
     id: "short",
-    number: "04",
+    number: "05",
     title: "Short Films",
     category: "Narrative",
     runtime: "12:00",
     grade: "Print-film density",
     blurb:
       "Scene architecture, coverage puzzles, and color that protects performance. The edit should disappear; the story should not.",
-    youtubeId: "",
-  },
-  {
-    id: "youtube",
-    number: "05",
-    title: "YouTube & Documentary",
-    category: "Long-form",
-    runtime: "08:40",
-    grade: "Natural / editorial",
-    blurb:
-      "Talking-head that still feels cinematic. B-roll that earns its place. Pacing for retention without cheap jump-cuts.",
     youtubeId: "",
   },
   {
@@ -100,6 +119,8 @@ export const projects: Project[] = [
     youtubeId: "",
   },
 ];
+
+export const featuredProject = projects.find((project) => project.featured) ?? projects[0];
 
 export const services = [
   {

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, IBM_Plex_Mono, Instrument_Serif, Noto_Sans_Tamil } from "next/font/google";
-import { site } from "@/lib/content";
+import { featuredProject, site } from "@/lib/content";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
@@ -29,7 +29,7 @@ const tamil = Noto_Sans_Tamil({
 });
 
 const title = `${site.name} — ${site.role}`;
-const description = `${site.summary} Based in ${site.location}.`;
+const description = `${featuredProject.logline} ${site.summary} Based in ${site.location}.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
     "colorist",
     "DaVinci Resolve",
     "Tamil Nadu",
-    "wedding film",
-    "commercial editor",
+    "nature film",
+    "Our Earth",
     site.name,
   ],
   authors: [{ name: site.name, url: getSiteUrl() }],
@@ -77,20 +77,35 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: site.name,
-  jobTitle: site.role,
-  email: site.email,
-  address: {
-    "@type": "PostalAddress",
-    addressRegion: "Tamil Nadu",
-    addressCountry: "IN",
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: site.name,
+    jobTitle: site.role,
+    email: site.email,
+    address: {
+      "@type": "PostalAddress",
+      addressRegion: "Tamil Nadu",
+      addressCountry: "IN",
+    },
+    knowsAbout: [...site.tools, "Video editing", "Color grading", "Nature film"],
+    url: getSiteUrl(),
   },
-  knowsAbout: [...site.tools, "Video editing", "Color grading"],
-  url: getSiteUrl(),
-};
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: featuredProject.title,
+    description: featuredProject.logline ?? featuredProject.blurb,
+    thumbnailUrl: `${getSiteUrl()}${featuredProject.poster}`,
+    contentUrl: `${getSiteUrl()}${featuredProject.videoSrc}`,
+    duration: "PT3M24S",
+    creator: {
+      "@type": "Person",
+      name: site.name,
+    },
+  },
+];
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
