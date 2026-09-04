@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #070706;
+  --ink-soft: #111110;
+  --paper: #f4efe6;
+  --paper-dim: #cfc6b8;
+  --gold: #c9a36a;
+  --gold-bright: #e8c99a;
+  --rule: rgba(244, 239, 230, 0.12);
+  --danger: #c45c4a;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-paper-dim: var(--paper-dim);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-rule: var(--rule);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-plex);
+  --font-display: var(--font-instrument);
+  --font-ta: var(--font-tamil);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--ink);
+}
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.vignette {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.letterbox {
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 14px;
+  z-index: 50;
+  background: #000;
+}
+
+.letterbox-top {
+  top: 0;
+}
+
+.letterbox-bottom {
+  bottom: 0;
+}
+
+.sprocket {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 18px,
+    rgba(244, 239, 230, 0.16) 18px 26px
+  );
+}
+
+.display {
+  font-family: var(--font-display), "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+}
+
+.tamil {
+  font-family: var(--font-ta), sans-serif;
+}
+
+.timecode {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.14em;
+}
+
+.frame-mask {
+  clip-path: inset(0 round 2px);
+}
+
+@keyframes rec-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.rec-dot {
+  animation: rec-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise 0.9s ease both;
+}
+
+.rise-2 {
+  animation-delay: 0.12s;
+}
+
+.rise-3 {
+  animation-delay: 0.24s;
+}
+
+.rise-4 {
+  animation-delay: 0.36s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .rec-dot,
+  .rise,
+  .rise-2,
+  .rise-3,
+  .rise-4 {
+    animation: none;
+  }
+}
