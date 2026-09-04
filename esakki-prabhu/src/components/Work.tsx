@@ -140,13 +140,25 @@ export function Work() {
                 <p className="timecode text-[10px] tracking-[0.2em] text-paper-dim">Finish</p>
                 <p className="mt-2 text-sm text-paper">{featuredProject.grade}</p>
               </div>
-              <button
-                type="button"
-                className="timecode w-fit border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink hover:bg-gold-bright"
-                onClick={() => setActive(featuredProject)}
-              >
-                Watch full screen
-              </button>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  className="timecode w-fit border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink hover:bg-gold-bright"
+                  onClick={() => setActive(featuredProject)}
+                >
+                  Watch full screen
+                </button>
+                {featuredProject.resourcesUrl ? (
+                  <a
+                    href={featuredProject.resourcesUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="timecode inline-flex items-center border border-paper/20 px-5 py-3 text-[11px] tracking-[0.22em] hover:border-gold hover:text-gold"
+                  >
+                    {featuredProject.resourcesLabel ?? "View resources"}
+                  </a>
+                ) : null}
+              </div>
             </div>
           </div>
         </article>
@@ -173,15 +185,27 @@ export function Work() {
                 <p className="timecode mt-6 text-[11px] tracking-[0.18em] text-gold">
                   {verticalProject.role}
                 </p>
-                <button
-                  type="button"
-                  className="timecode mt-6 border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink hover:bg-gold-bright"
-                  onClick={() => {
-                    if (verticalProject) setActive(verticalProject);
-                  }}
-                >
-                  Watch full screen
-                </button>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    className="timecode border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink hover:bg-gold-bright"
+                    onClick={() => {
+                      if (verticalProject) setActive(verticalProject);
+                    }}
+                  >
+                    Watch full screen
+                  </button>
+                  {verticalProject.resourcesUrl ? (
+                    <a
+                      href={verticalProject.resourcesUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="timecode inline-flex items-center border border-paper/20 px-5 py-3 text-[11px] tracking-[0.22em] hover:border-gold hover:text-gold"
+                    >
+                      {verticalProject.resourcesLabel ?? "View resources"}
+                    </a>
+                  ) : null}
+                </div>
               </div>
             </div>
           </article>
@@ -270,6 +294,16 @@ export function Work() {
               ))}
               {active.role ? (
                 <p className="timecode mt-4 text-[11px] tracking-[0.18em] text-gold">{active.role}</p>
+              ) : null}
+              {active.resourcesUrl ? (
+                <a
+                  href={active.resourcesUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="timecode mt-4 inline-flex border border-paper/20 px-4 py-2 text-[11px] tracking-[0.2em] hover:border-gold hover:text-gold"
+                >
+                  {active.resourcesLabel ?? "View resources"}
+                </a>
               ) : null}
               {!hasPlayableMedia(active) ? (
                 <p className="mt-4 text-sm text-paper-dim">

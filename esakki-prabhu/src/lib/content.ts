@@ -38,6 +38,9 @@ export type Project = {
   question?: string;
   role?: string;
   format?: string;
+  /** Google Drive (or other) folder with footage, SFX, and edit resources for client review. */
+  resourcesUrl?: string;
+  resourcesLabel?: string;
 };
 
 export const projects: Project[] = [
@@ -64,6 +67,9 @@ export const projects: Project[] = [
     poster: "/videos/our-earth-poster.jpg",
     featured: true,
     youtubeId: "",
+    resourcesUrl:
+      "https://drive.google.com/drive/folders/1JbnWDm_NpXTUrv1J10ssLjI42zUfG4JV?usp=sharing",
+    resourcesLabel: "View resources",
   },
   {
     id: "richwood",
@@ -86,6 +92,9 @@ export const projects: Project[] = [
     videoSrc: "/videos/richwood-interior.mp4",
     poster: "/videos/richwood-poster.jpg",
     youtubeId: "",
+    resourcesUrl:
+      "https://drive.google.com/drive/folders/1iG2iMxY8UWdadId13Wj3_GSvHIK7R8VE?usp=sharing",
+    resourcesLabel: "View resources",
   },
   {
     id: "wedding",
