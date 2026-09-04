@@ -113,7 +113,13 @@ export function Work() {
               <h3 className="display mt-3 text-5xl sm:text-7xl">{featuredProject.title}</h3>
               <p className="mt-4 text-lg text-gold-bright">{featuredProject.tagline}</p>
               <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{featuredProject.blurb}</p>
-              {featuredProject.body?.map((paragraph) => (
+              {featuredProject.body?.slice(0, 1).map((paragraph) => (
+                <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
+                  {paragraph}{" "}
+                  {featuredProject.question ? <em>{featuredProject.question}</em> : null}
+                </p>
+              ))}
+              {featuredProject.body?.slice(1).map((paragraph) => (
                 <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
                   {paragraph}
                 </p>
@@ -204,7 +210,12 @@ export function Work() {
                 <p className="mt-3 text-lg text-gold-bright">{active.tagline}</p>
               ) : null}
               <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{active.blurb}</p>
-              {active.body?.map((paragraph) => (
+              {active.body?.slice(0, 1).map((paragraph) => (
+                <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
+                  {paragraph} {active.question ? <em>{active.question}</em> : null}
+                </p>
+              ))}
+              {active.body?.slice(1).map((paragraph) => (
                 <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
                   {paragraph}
                 </p>

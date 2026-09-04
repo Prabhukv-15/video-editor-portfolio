@@ -35,6 +35,7 @@ export type Project = {
   logline?: string;
   tagline?: string;
   body?: string[];
+  question?: string;
   role?: string;
   format?: string;
 };
@@ -54,9 +55,10 @@ export const projects: Project[] = [
     blurb:
       "A film that lets the world speak — then asks what happens when we stop listening.",
     body: [
-      "From first light to deep ocean, the cut follows a single chain of life. Then the picture goes black. Human noise enters. What remains is a question: this was always our home. Did we forget?",
+      "From first light to deep ocean, the cut follows a single chain of life. Then the picture goes black. Human noise enters. What remains is a question:",
       "Edited and mixed in DaVinci Resolve — picture, sound, titles, Fairlight. Built for brands, campaigns, and creators who want nature with emotion, not a lecture.",
     ],
+    question: "this was always our home. Did we forget?",
     role: "Editor · Sound · Titles · Mix",
     videoSrc: "/videos/our-earth.mp4",
     poster: "/videos/our-earth-poster.jpg",
