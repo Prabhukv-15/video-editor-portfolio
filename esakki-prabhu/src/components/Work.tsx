@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CinematicStill } from "@/components/CinematicStill";
-import { type Project, featuredProject, projects, site, verticalProjects } from "@/lib/content";
+import { type Project, featuredProject, landscapeFilms, projects, site, verticalProjects } from "@/lib/content";
 
 function youtubeSrc(id: string) {
   return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
@@ -79,8 +79,12 @@ function ProjectCover({ project }: { project: Project }) {
 export function Work() {
   const [active, setActive] = useState<Project | null>(null);
   const verticalIds = new Set(verticalProjects.map((project) => project.id));
+  const landscapeIds = new Set(landscapeFilms.map((project) => project.id));
   const rest = projects.filter(
-    (project) => project.id !== featuredProject.id && !verticalIds.has(project.id),
+    (project) =>
+      project.id !== featuredProject.id &&
+      !verticalIds.has(project.id) &&
+      !landscapeIds.has(project.id),
   );
 
   useEffect(() => {
@@ -163,6 +167,64 @@ export function Work() {
             </div>
           </div>
         </article>
+
+        {landscapeFilms.map((film) => (
+          <article
+            key={film.id}
+            className="mt-8 overflow-hidden border border-white/10 bg-ink-soft"
+          >
+            <div className="relative aspect-video bg-black">
+              <ProjectPlayer project={film} />
+            </div>
+            <div className="grid gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-10">
+              <div>
+                <p className="timecode text-[11px] tracking-[0.24em] text-gold">
+                  {film.number} · {film.category} · {film.runtime} · {film.format}
+                </p>
+                <h3 className="display mt-3 text-5xl sm:text-7xl">{film.title}</h3>
+                {film.tamilLine ? (
+                  <p className="tamil mt-3 text-lg text-gold-bright sm:text-xl">{film.tamilLine}</p>
+                ) : null}
+                <p className="mt-4 text-lg text-gold-bright">{film.tagline}</p>
+                <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{film.blurb}</p>
+                {film.body?.map((paragraph) => (
+                  <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+              <div className="flex flex-col justify-end gap-6 border-t border-white/10 pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
+                <div>
+                  <p className="timecode text-[10px] tracking-[0.2em] text-paper-dim">Role</p>
+                  <p className="mt-2 text-sm text-paper">{film.role}</p>
+                </div>
+                <div>
+                  <p className="timecode text-[10px] tracking-[0.2em] text-paper-dim">Finish</p>
+                  <p className="mt-2 text-sm text-paper">{film.grade}</p>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    className="timecode w-fit border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink hover:bg-gold-bright"
+                    onClick={() => setActive(film)}
+                  >
+                    Watch full screen
+                  </button>
+                  {film.resourcesUrl ? (
+                    <a
+                      href={film.resourcesUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="timecode inline-flex items-center border border-paper/20 px-5 py-3 text-[11px] tracking-[0.22em] hover:border-gold hover:text-gold"
+                    >
+                      {film.resourcesLabel ?? "View resources"}
+                    </a>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
 
         {verticalProjects.map((verticalProject) => (
           <article
@@ -282,6 +344,9 @@ export function Work() {
               </h3>
               {active.tagline ? (
                 <p className="mt-3 text-lg text-gold-bright">{active.tagline}</p>
+              ) : null}
+              {active.tamilLine ? (
+                <p className="tamil mt-3 text-base text-gold-bright sm:text-lg">{active.tamilLine}</p>
               ) : null}
               <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{active.blurb}</p>
               {active.body?.slice(0, 1).map((paragraph) => (

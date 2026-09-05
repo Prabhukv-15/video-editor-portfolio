@@ -1,4 +1,4 @@
-import { featuredProject, projects, site } from "@/lib/content";
+import { projects, site } from "@/lib/content";
 import { CinematicStill } from "@/components/CinematicStill";
 import { Timecode } from "@/components/Timecode";
 
@@ -9,17 +9,17 @@ export function Hero() {
       className="relative flex min-h-svh flex-col justify-end overflow-hidden px-5 pt-28 pb-16 sm:px-8 lg:px-12"
     >
       <div className="pointer-events-none absolute inset-0">
-        {featuredProject.poster ? (
+        {site.heroImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={featuredProject.poster}
+            src={site.heroImage}
             alt=""
-            className="h-full w-full object-cover opacity-45"
+            className="h-full w-full object-cover opacity-50"
           />
         ) : (
           <CinematicStill id="earth" className="h-full w-full opacity-70" />
         )}
-        <div className="absolute inset-0 bg-linear-to-b from-ink/40 via-ink/55 to-ink" />
+        <div className="absolute inset-0 bg-linear-to-b from-ink/50 via-ink/60 to-ink" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1400px]">
@@ -54,7 +54,7 @@ export function Hero() {
               href="#work"
               className="timecode inline-flex items-center border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink transition-colors hover:bg-gold-bright"
             >
-              Watch Our Earth
+              Watch selected work
             </a>
             <a
               href="#contact"
@@ -66,19 +66,29 @@ export function Hero() {
         </div>
 
         <ul className="rise rise-4 mt-14 hidden gap-3 md:grid md:grid-cols-3">
-          {projects.slice(0, 3).map((project) => (
-            <li key={project.id} className="relative aspect-[2.39/1] overflow-hidden border border-white/10">
-              {project.poster ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={project.poster} alt="" className="h-full w-full object-cover" />
-              ) : (
-                <CinematicStill id={project.id} className="h-full w-full" title={project.title} />
-              )}
-              <span className="absolute right-3 bottom-3 timecode text-[10px] tracking-[0.2em] text-white">
-                {project.number} {project.title}
-              </span>
-            </li>
-          ))}
+          {projects
+            .filter((project) => Boolean(project.videoSrc || project.poster))
+            .slice(0, 3)
+            .map((project) => (
+              <li
+                key={project.id}
+                className="relative aspect-[2.39/1] overflow-hidden border border-white/10"
+              >
+                {project.poster ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={project.poster} alt="" className="h-full w-full object-cover" />
+                ) : (
+                  <CinematicStill
+                    id={project.id}
+                    className="h-full w-full"
+                    title={project.title}
+                  />
+                )}
+                <span className="absolute right-3 bottom-3 timecode text-[10px] tracking-[0.2em] text-white">
+                  {project.number} {project.title}
+                </span>
+              </li>
+            ))}
         </ul>
       </div>
     </section>

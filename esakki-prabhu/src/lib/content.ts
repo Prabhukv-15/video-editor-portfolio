@@ -18,6 +18,7 @@ export const site = {
     youtube: "",
     whatsapp: "",
   },
+  heroImage: "/images/hero-workspace.jpg",
 } as const;
 
 export type Project = {
@@ -38,6 +39,7 @@ export type Project = {
   question?: string;
   role?: string;
   format?: string;
+  tamilLine?: string;
   /** Google Drive (or other) folder with footage, SFX, and edit resources for client review. */
   resourcesUrl?: string;
   resourcesLabel?: string;
@@ -122,8 +124,32 @@ export const projects: Project[] = [
     resourcesLabel: "View resources",
   },
   {
-    id: "wedding",
+    id: "animated-house",
     number: "04",
+    title: "Animated House",
+    category: "Architectural motion",
+    runtime: "00:50",
+    format: "16:9",
+    grade: "Golden hour / pool glow",
+    tagline: "A home that wakes as the light falls.",
+    tamilLine: "நீச்சல் குளத்துடன் ஒரு வீடு — வெளிச்சம் வரும்போது உயிர்ப்பு.",
+    logline:
+      "A 50-second architectural motion piece — villa, pool, and twilight atmosphere built in the edit.",
+    blurb:
+      "An animated house film for lifestyle and real-estate mood — warm interiors, turquoise pool, and a sky that holds the last light.",
+    body: [
+      "The cut lets the villa breathe: exterior stills become motion, water holds the reflection, and the grade keeps dusk warm without washing the pool.",
+      "Edited and mixed in DaVinci Resolve — picture, atmosphere, and sound beds for a home that feels lived-in before anyone steps inside.",
+    ],
+    role: "Editor · Motion · Color · Sound",
+    videoSrc: "/videos/animated-house.mp4",
+    poster: "/videos/animated-house-poster.jpg",
+    youtubeId: "",
+    resourcesLabel: "View resources",
+  },
+  {
+    id: "wedding",
+    number: "05",
     title: "Wedding Films",
     category: "Documentary romance",
     runtime: "04:20",
@@ -134,7 +160,7 @@ export const projects: Project[] = [
   },
   {
     id: "music",
-    number: "05",
+    number: "06",
     title: "Music Videos",
     category: "Performance",
     runtime: "03:12",
@@ -145,7 +171,7 @@ export const projects: Project[] = [
   },
   {
     id: "short",
-    number: "06",
+    number: "07",
     title: "Short Films",
     category: "Narrative",
     runtime: "12:00",
@@ -156,7 +182,7 @@ export const projects: Project[] = [
   },
   {
     id: "event",
-    number: "07",
+    number: "08",
     title: "Events & Recaps",
     category: "Live",
     runtime: "02:30",
@@ -169,6 +195,9 @@ export const projects: Project[] = [
 
 export const featuredProject = projects.find((project) => project.featured) ?? projects[0];
 export const verticalProjects = projects.filter((project) => project.format === "9:16");
+export const landscapeFilms = projects.filter(
+  (project) => project.format === "16:9" && Boolean(project.videoSrc) && !project.featured,
+);
 /** @deprecated Prefer verticalProjects — kept for any leftover single-project usage */
 export const verticalProject = verticalProjects[0];
 
