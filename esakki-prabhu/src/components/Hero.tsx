@@ -26,7 +26,7 @@ export function Hero() {
         aria-hidden
       />
 
-      {/* Angled NLE interface — right side */}
+      {/* Angled NLE interface — keep current bg */}
       <div
         className="pointer-events-none absolute top-[-2%] right-[-12%] bottom-[-4%] w-[88%] sm:right-[-8%] sm:w-[82%] lg:right-[-6%] lg:w-[78%]"
         aria-hidden
@@ -34,7 +34,7 @@ export function Hero() {
         <div className="hero-nle-frame h-full w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/hero-nle-bg.jpg"
+            src={site.heroImage}
             alt=""
             className="h-full w-full scale-[1.18] object-cover object-[28%_42%] opacity-100"
           />
@@ -43,7 +43,23 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Left typography block — matches Behance placement */}
+      {/* Profile image box — right side overlay */}
+      <div className="pointer-events-none absolute top-[22%] right-[4%] z-20 hidden w-[min(34vw,320px)] sm:block lg:right-[7%] lg:top-[18%]">
+        <div className="relative overflow-hidden rounded-[1.4rem] border-[3px] border-white shadow-[0_20px_60px_rgba(0,0,0,0.55)]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/profile-hero.jpg"
+            alt={site.name}
+            className="aspect-[3/4] h-auto w-full object-cover object-[50%_18%]"
+          />
+          <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/70 to-transparent px-3 pb-3 pt-10">
+            <p className="text-sm font-semibold text-white">{site.name}</p>
+            <p className="text-xs text-white/70">{site.role}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Left typography */}
       <div className="relative z-10 w-full max-w-[1400px]">
         <div className="max-w-[920px]">
           <h1 className="hero-title rise text-white">Portfolio</h1>
@@ -66,6 +82,16 @@ export function Hero() {
             >
               Hire me
             </a>
+          </div>
+
+          {/* Mobile profile */}
+          <div className="mt-10 w-44 overflow-hidden rounded-2xl border-2 border-white sm:hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/profile-hero.jpg"
+              alt={site.name}
+              className="aspect-[3/4] w-full object-cover object-[50%_18%]"
+            />
           </div>
         </div>
       </div>

@@ -19,6 +19,7 @@ export const site = {
     youtube: "",
   },
   heroImage: "/images/hero-nle-bg.jpg",
+  profileImage: "/images/profile-hero.jpg",
 } as const;
 
 export const softwares = [
@@ -103,8 +104,29 @@ export const projects: Project[] = [
     resourcesLabel: "View resources",
   },
   {
-    id: "richwood",
+    id: "portrait-reel",
     number: "03",
+    title: "Portrait Reel",
+    category: "Vertical interview",
+    runtime: "00:39",
+    format: "9:16",
+    grade: "Natural light / social-ready",
+    tagline: "A clean vertical cut for talk, brand, and Reels.",
+    logline: "A vertical portrait reel — paced for the phone and built for attention.",
+    blurb:
+      "A short vertical interview-style reel — skin-true grade, steady pacing, and a finish made for Instagram and WhatsApp delivery.",
+    body: [
+      "The cut keeps the speaker centered and the frame calm. Titles stay out of the way so the face and voice carry the story.",
+      "Edited in DaVinci Resolve for 9:16 — ready for Reels, Shorts, and client reviews on mobile.",
+    ],
+    role: "Editor · Color · Mix",
+    videoSrc: "/videos/portrait-reel.mp4",
+    poster: "/videos/portrait-reel-poster.jpg",
+    youtubeId: "",
+  },
+  {
+    id: "richwood",
+    number: "04",
     title: "Richwood Interior",
     category: "Brand film",
     runtime: "01:12",
@@ -129,7 +151,7 @@ export const projects: Project[] = [
   },
   {
     id: "admit-scholar",
-    number: "04",
+    number: "05",
     title: "Admit Scholar",
     category: "Education brand reel",
     runtime: "00:43",
@@ -154,7 +176,7 @@ export const projects: Project[] = [
   },
   {
     id: "wedding",
-    number: "05",
+    number: "06",
     title: "Wedding Films",
     category: "Documentary romance",
     runtime: "04:20",
@@ -165,7 +187,7 @@ export const projects: Project[] = [
   },
   {
     id: "music",
-    number: "06",
+    number: "07",
     title: "Music Videos",
     category: "Performance",
     runtime: "03:12",
@@ -176,7 +198,7 @@ export const projects: Project[] = [
   },
   {
     id: "short",
-    number: "07",
+    number: "08",
     title: "Short Films",
     category: "Narrative",
     runtime: "12:00",
@@ -187,7 +209,7 @@ export const projects: Project[] = [
   },
   {
     id: "event",
-    number: "08",
+    number: "09",
     title: "Events & Recaps",
     category: "Live",
     runtime: "02:30",
