@@ -50,6 +50,10 @@ export type Project = {
   /** Google Drive (or other) folder with footage, SFX, and edit resources for client review. */
   resourcesUrl?: string;
   resourcesLabel?: string;
+  /** Group under AI Generated section instead of Horizontal / Vertical. */
+  aiGenerated?: boolean;
+  /** Loop short AI clips (e.g. under 2s). */
+  loop?: boolean;
 };
 
 export const projects: Project[] = [
@@ -175,6 +179,50 @@ export const projects: Project[] = [
     resourcesLabel: "View resources",
   },
   {
+    id: "ai-pippit",
+    number: "AI-01",
+    title: "Pippit Demo",
+    category: "AI generated · Vertical",
+    runtime: "01:04",
+    format: "9:16",
+    grade: "Generative motion / social-ready",
+    tagline: "Prompt-led vertical motion — paced for Reels and Shorts.",
+    logline: "A vertical AI-generated demo cut finished for phone-first playback.",
+    blurb:
+      "An AI-generated vertical piece — motion, grade, and timing tuned so the feed feels intentional, not accidental.",
+    body: [
+      "Built as a generative motion demo for clients exploring AI + edit hybrid workflows.",
+      "Finished for 9:16 — Reels, Shorts, and WhatsApp delivery.",
+    ],
+    role: "AI generation · Edit · Finish",
+    videoSrc: "/videos/ai-pippit.mp4",
+    poster: "/videos/ai-pippit-poster.jpg",
+    youtubeId: "",
+    aiGenerated: true,
+  },
+  {
+    id: "ai-villa",
+    number: "AI-02",
+    title: "Villa Home",
+    category: "AI generated · Architectural",
+    runtime: "00:01",
+    format: "16:9",
+    grade: "Golden architectural glow",
+    tagline: "A villa moment from prompt to picture.",
+    logline: "A short AI architectural loop — villa atmosphere in a single breath.",
+    blurb:
+      "A brief AI-generated villa home beat — warm exterior light and a still that almost moves. Looped for mood boards and real-estate pitches.",
+    body: [
+      "Designed as a generative architecture sample — fast to review, easy to drop into a pitch deck or reel.",
+    ],
+    role: "AI generation · Grade · Loop finish",
+    videoSrc: "/videos/ai-villa.mp4",
+    poster: "/videos/ai-villa-poster.jpg",
+    youtubeId: "",
+    aiGenerated: true,
+    loop: true,
+  },
+  {
     id: "wedding",
     number: "06",
     title: "Wedding Films",
@@ -221,11 +269,16 @@ export const projects: Project[] = [
 ];
 
 export const featuredProject = projects.find((project) => project.featured) ?? projects[0];
+export const aiVideos = projects.filter(
+  (project) => Boolean(project.videoSrc) && project.aiGenerated,
+);
 export const horizontalVideos = projects.filter(
-  (project) => Boolean(project.videoSrc) && project.format === "16:9",
+  (project) =>
+    Boolean(project.videoSrc) && project.format === "16:9" && !project.aiGenerated,
 );
 export const verticalVideos = projects.filter(
-  (project) => Boolean(project.videoSrc) && project.format === "9:16",
+  (project) =>
+    Boolean(project.videoSrc) && project.format === "9:16" && !project.aiGenerated,
 );
 export const verticalProjects = verticalVideos;
 export const landscapeFilms = horizontalVideos.filter((project) => !project.featured);

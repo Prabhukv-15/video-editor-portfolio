@@ -1,3 +1,4 @@
+import { AiGenerated } from "@/components/AiGenerated";
 import { Hero } from "@/components/Hero";
 import { Nav } from "@/components/Nav";
 import { About, Contact, Footer, Services } from "@/components/SiteSections";
@@ -17,6 +18,7 @@ export default function Home() {
         <Hero />
         <About />
         <Work />
+        <AiGenerated />
         <Services />
         <Contact />
       </main>

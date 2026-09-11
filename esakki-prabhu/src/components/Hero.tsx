@@ -4,11 +4,11 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-svh items-end overflow-hidden bg-[#070707] px-5 pb-16 pt-28 sm:px-8 sm:pb-20 lg:px-14 lg:pb-24"
+      className="relative flex min-h-[110svh] items-end overflow-hidden bg-[#070707] px-5 pb-16 pt-28 sm:min-h-svh sm:px-8 sm:pb-20 lg:min-h-[108svh] lg:px-14 lg:pb-24"
     >
-      {/* Dot grid */}
+      {/* Dot grid — slow drift */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        className="hero-grid-drift pointer-events-none absolute inset-0 opacity-[0.35]"
         style={{
           backgroundImage: "radial-gradient(rgba(255,255,255,0.22) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
@@ -16,9 +16,9 @@ export function Hero() {
         aria-hidden
       />
 
-      {/* Magenta glow — top right */}
+      {/* Magenta glow — breathing pulse */}
       <div
-        className="pointer-events-none absolute -top-24 -right-16 h-[55vh] w-[55vw] rounded-full opacity-90 blur-3xl"
+        className="hero-glow-pulse pointer-events-none absolute -top-24 -right-16 h-[55vh] w-[55vw] rounded-full opacity-90 blur-3xl"
         style={{
           background:
             "radial-gradient(circle, rgba(255,45,120,0.55) 0%, rgba(255,45,85,0.2) 35%, transparent 70%)",
@@ -26,7 +26,7 @@ export function Hero() {
         aria-hidden
       />
 
-      {/* Angled NLE interface — keep current bg */}
+      {/* Angled NLE interface — ken burns + drift */}
       <div
         className="pointer-events-none absolute top-[-2%] right-[-12%] bottom-[-4%] w-[88%] sm:right-[-8%] sm:w-[82%] lg:right-[-6%] lg:w-[78%]"
         aria-hidden
@@ -77,10 +77,10 @@ export function Hero() {
               View work
             </a>
             <a
-              href="#contact"
+              href="#ai"
               className="label inline-flex items-center border border-white/25 px-5 py-3 text-white hover:border-accent hover:text-accent"
             >
-              Hire me
+              AI films
             </a>
           </div>
 
