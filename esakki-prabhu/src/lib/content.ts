@@ -13,12 +13,20 @@ export const site = {
   available: true,
   tools: ["DaVinci Resolve", "After Effects", "Premiere Pro", "Audition"],
   socials: {
-    instagram: "",
+    instagram: "https://www.instagram.com/prabhukv_15/",
+    whatsapp: "https://wa.me/919025815302",
+    threads: "https://www.threads.com/@prabhukv_15",
     youtube: "",
-    whatsapp: "",
   },
   heroImage: "/images/hero-nle-bg.jpg",
 } as const;
+
+export const softwares = [
+  { id: "resolve", label: "DaVinci Resolve", short: "DR", color: "#1E1E1E", accent: "#FF6A00" },
+  { id: "ae", label: "After Effects", short: "Ae", color: "#00005B", accent: "#9999FF" },
+  { id: "pr", label: "Premiere Pro", short: "Pr", color: "#00005B", accent: "#9999FF" },
+  { id: "au", label: "Audition", short: "Au", color: "#00000A", accent: "#00E4BB" },
+] as const;
 
 export type Project = {
   id: string;
