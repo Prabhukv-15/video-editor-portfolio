@@ -98,23 +98,137 @@ button {
   height: 100%;
   transform: perspective(1600px) rotateY(-12deg) rotateX(3deg) rotateZ(-1.5deg) scale(1.08);
   transform-origin: center right;
-  filter: saturate(1.08) contrast(1.06);
-  animation: hero-nle-drift 28s ease-in-out infinite alternate;
+  filter: saturate(1.12) contrast(1.08) brightness(1.05);
+  animation: hero-nle-drift 16s ease-in-out infinite alternate;
 }
 
 .hero-nle-frame img {
   mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 100%);
   transform-origin: 35% 45%;
-  animation: hero-kenburns 32s ease-in-out infinite alternate;
+  animation: hero-kenburns 18s ease-in-out infinite alternate;
   will-change: transform;
 }
 
 .hero-glow-pulse {
-  animation: hero-glow-pulse 8s ease-in-out infinite alternate;
+  animation: hero-glow-pulse 5.5s ease-in-out infinite alternate;
+}
+
+.hero-glow-orbit {
+  animation: hero-glow-orbit 10s ease-in-out infinite alternate;
 }
 
 .hero-grid-drift {
-  animation: hero-grid-drift 40s linear infinite;
+  animation: hero-grid-drift 22s linear infinite;
+}
+
+.hero-light-sweep {
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 42%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 58%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  animation: hero-light-sweep 7s ease-in-out infinite;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.hero-profile-float {
+  animation: hero-profile-float 5.5s ease-in-out infinite;
+}
+
+.hero-kicker {
+  animation: rise 0.7s ease both;
+}
+
+.hero-title-reveal {
+  animation: hero-title-reveal 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-cta-primary {
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+  box-shadow: 0 0 0 rgba(255, 45, 85, 0);
+}
+
+.hero-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(255, 45, 85, 0.35);
+}
+
+.hero-cta-ghost {
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.hero-cta-ghost:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.hero-scroll-hint {
+  animation: hero-scroll-hint 2.2s ease-in-out infinite;
+}
+
+.hero-scroll-line {
+  transform-origin: top;
+  animation: hero-scroll-line 2.2s ease-in-out infinite;
+}
+
+.nav-link {
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.nav-link-pill {
+  animation: nav-pill-in 0.28s ease both;
+}
+
+.nav-burger {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 10px;
+}
+
+.nav-burger span {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: #fff;
+  transition:
+    transform 0.3s ease,
+    top 0.3s ease,
+    opacity 0.2s ease;
+}
+
+.nav-burger span:first-child {
+  top: 2px;
+}
+
+.nav-burger span:last-child {
+  top: 7px;
+}
+
+.nav-burger.is-open span:first-child {
+  top: 4.5px;
+  transform: rotate(45deg);
+}
+
+.nav-burger.is-open span:last-child {
+  top: 4.5px;
+  transform: rotate(-45deg);
 }
 
 .ai-glass {
@@ -163,48 +277,59 @@ button {
 
 @media (max-width: 640px) {
   .hero-nle-frame {
-    animation: hero-nle-drift-mobile 28s ease-in-out infinite alternate;
-    opacity: 0.7;
+    animation: hero-nle-drift-mobile 16s ease-in-out infinite alternate;
+    opacity: 0.78;
   }
 }
 
 @keyframes hero-kenburns {
   from {
-    transform: scale(1.18) translate3d(0, 0, 0);
+    transform: scale(1.14) translate3d(0, 0, 0);
   }
   to {
-    transform: scale(1.32) translate3d(-3.5%, 2%, 0);
+    transform: scale(1.38) translate3d(-5%, 3.5%, 0);
   }
 }
 
 @keyframes hero-nle-drift {
   from {
-    transform: perspective(1600px) rotateY(-12deg) rotateX(3deg) rotateZ(-1.5deg) scale(1.08)
+    transform: perspective(1600px) rotateY(-14deg) rotateX(2deg) rotateZ(-2deg) scale(1.06)
       translate3d(0, 0, 0);
   }
   to {
-    transform: perspective(1600px) rotateY(-9deg) rotateX(4deg) rotateZ(-0.5deg) scale(1.12)
-      translate3d(-1.5%, 1%, 0);
+    transform: perspective(1600px) rotateY(-7deg) rotateX(5deg) rotateZ(0.5deg) scale(1.16)
+      translate3d(-2.5%, 1.5%, 0);
   }
 }
 
 @keyframes hero-nle-drift-mobile {
   from {
-    transform: perspective(900px) rotateY(-8deg) rotateX(2deg) scale(1.12) translate3d(0, 0, 0);
+    transform: perspective(900px) rotateY(-9deg) rotateX(2deg) scale(1.1) translate3d(0, 0, 0);
   }
   to {
-    transform: perspective(900px) rotateY(-5deg) rotateX(3deg) scale(1.18) translate3d(-2%, 1%, 0);
+    transform: perspective(900px) rotateY(-4deg) rotateX(4deg) scale(1.22) translate3d(-3%, 2%, 0);
   }
 }
 
 @keyframes hero-glow-pulse {
   from {
-    opacity: 0.75;
-    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 0.65;
+    transform: scale(0.95) translate3d(0, 0, 0);
   }
   to {
     opacity: 1;
-    transform: scale(1.12) translate3d(-4%, 3%, 0);
+    transform: scale(1.18) translate3d(-6%, 4%, 0);
+  }
+}
+
+@keyframes hero-glow-orbit {
+  from {
+    opacity: 0.35;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    opacity: 0.7;
+    transform: translate3d(40px, -30px, 0) scale(1.25);
   }
 }
 
@@ -213,7 +338,82 @@ button {
     background-position: 0 0;
   }
   to {
-    background-position: 28px 28px;
+    background-position: 56px 56px;
+  }
+}
+
+@keyframes hero-light-sweep {
+  0%,
+  18% {
+    background-position: 120% 0;
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    background-position: -20% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes hero-profile-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-0.6deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(0.8deg);
+  }
+}
+
+@keyframes hero-title-reveal {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-scroll-hint {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes hero-scroll-line {
+  0% {
+    transform: scaleY(0.35);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0.35);
+    opacity: 0.2;
+  }
+}
+
+@keyframes nav-pill-in {
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -281,13 +481,23 @@ button {
   .hero-nle-frame,
   .hero-nle-frame img,
   .hero-glow-pulse,
+  .hero-glow-orbit,
   .hero-grid-drift,
+  .hero-light-sweep,
+  .hero-profile-float,
+  .hero-title-reveal,
+  .hero-kicker,
+  .hero-scroll-hint,
+  .hero-scroll-line,
+  .nav-link-pill,
   .ai-title-shimmer,
   .ai-glass {
     animation: none;
   }
 
-  .ai-glass:hover {
+  .ai-glass:hover,
+  .hero-cta-primary:hover,
+  .hero-cta-ghost:hover {
     transform: none;
   }
 
