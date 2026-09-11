@@ -1,95 +1,50 @@
-import { projects, site } from "@/lib/content";
-import { CinematicStill } from "@/components/CinematicStill";
-import { Timecode } from "@/components/Timecode";
+import { site } from "@/lib/content";
 
 export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-svh flex-col justify-end overflow-hidden px-5 pt-28 pb-16 sm:px-8 lg:px-12"
+      className="relative flex min-h-svh flex-col justify-end overflow-hidden px-5 pb-16 pt-28 sm:px-8 lg:px-12 lg:pb-24"
     >
       <div className="pointer-events-none absolute inset-0">
-        {site.heroImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={site.heroImage}
-            alt=""
-            className="h-full w-full object-cover opacity-50"
-          />
-        ) : (
-          <CinematicStill id="earth" className="h-full w-full opacity-70" />
-        )}
-        <div className="absolute inset-0 bg-linear-to-b from-ink/50 via-ink/60 to-ink" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={site.heroImage}
+          alt=""
+          className="h-full w-full object-cover object-center opacity-40"
+        />
+        <div className="absolute inset-0 bg-ink/70" />
+        <div className="hero-grid absolute inset-0 opacity-60" />
+        <div className="hero-glow absolute inset-0" />
+        <div className="absolute inset-0 bg-linear-to-t from-ink via-ink/40 to-ink/30" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1400px]">
-        <div className="mb-10 flex items-center justify-between gap-4 text-paper-dim">
-          <div className="flex items-center gap-3">
-            <span className="rec-dot inline-block h-2 w-2 rounded-full bg-danger" />
-            <span className="timecode text-[11px] tracking-[0.24em]">REC</span>
-            <Timecode />
-          </div>
-          <p className="timecode hidden text-[10px] tracking-[0.22em] sm:block">
-            {site.location}
-          </p>
-        </div>
-
-        <p className="rise timecode text-[11px] tracking-[0.32em] text-gold">
-          {site.role}
-        </p>
-        <h1 className="rise rise-2 display mt-5 text-[18vw] sm:text-[14vw] lg:text-[10.5rem]">
-          <span className="block">{site.firstName}</span>
-          <span className="block italic text-gold-bright">{site.lastName}</span>
+        <p className="rise label text-accent">{site.role}</p>
+        <h1 className="rise rise-2 display mt-5 text-[16vw] leading-[0.85] sm:text-[12vw] lg:text-[9rem]">
+          Portfolio
         </h1>
-
-        <div className="rise rise-3 mt-8 flex max-w-3xl flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="tamil text-lg text-gold-bright sm:text-xl">{site.tamilLine}</p>
-            <p className="mt-3 max-w-xl text-base leading-7 text-paper-dim sm:text-lg">
-              {site.summary}
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="#work"
-              className="timecode inline-flex items-center border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink transition-colors hover:bg-gold-bright"
-            >
-              Watch selected work
-            </a>
-            <a
-              href="#contact"
-              className="timecode inline-flex items-center border border-paper/20 px-5 py-3 text-[11px] tracking-[0.22em] hover:border-gold hover:text-gold"
-            >
-              Book a cut
-            </a>
-          </div>
+        <p className="rise rise-3 mt-4 max-w-2xl text-lg text-paper-dim sm:text-xl">
+          {site.name} · {site.role}
+        </p>
+        <p className="rise rise-3 mt-4 max-w-xl text-base leading-7 text-paper-dim">
+          {site.summary}
+        </p>
+        <div className="rise rise-4 mt-10 flex flex-wrap gap-3">
+          <a
+            href="#work"
+            className="label inline-flex items-center bg-accent px-6 py-3 text-white transition-colors hover:bg-accent-soft"
+          >
+            View work
+          </a>
+          <a
+            href="#contact"
+            className="label inline-flex items-center border border-white/20 px-6 py-3 transition-colors hover:border-accent hover:text-accent"
+          >
+            Hire me
+          </a>
         </div>
-
-        <ul className="rise rise-4 mt-14 hidden gap-3 md:grid md:grid-cols-3">
-          {projects
-            .filter((project) => Boolean(project.videoSrc || project.poster))
-            .slice(0, 3)
-            .map((project) => (
-              <li
-                key={project.id}
-                className="relative aspect-[2.39/1] overflow-hidden border border-white/10"
-              >
-                {project.poster ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={project.poster} alt="" className="h-full w-full object-cover" />
-                ) : (
-                  <CinematicStill
-                    id={project.id}
-                    className="h-full w-full"
-                    title={project.title}
-                  />
-                )}
-                <span className="absolute right-3 bottom-3 timecode text-[10px] tracking-[0.2em] text-white">
-                  {project.number} {project.title}
-                </span>
-              </li>
-            ))}
-        </ul>
+        <p className="label mt-14 text-paper-dim">{site.location}</p>
       </div>
     </section>
   );

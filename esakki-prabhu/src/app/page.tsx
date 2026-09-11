@@ -5,17 +5,13 @@ import { Work } from "@/components/Work";
 
 export default function Home() {
   return (
-    <div className="relative">
+    <div className="relative bg-ink">
       <a
         href="#work"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[80] focus:bg-gold focus:px-3 focus:py-2 focus:text-ink"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[80] focus:bg-accent focus:px-3 focus:py-2 focus:text-white"
       >
         Skip to work
       </a>
-      <div className="grain" aria-hidden />
-      <div className="vignette" aria-hidden />
-      <div className="letterbox letterbox-top hidden sm:block" aria-hidden />
-      <div className="letterbox letterbox-bottom hidden sm:block" aria-hidden />
       <Nav />
       <main>
         <Hero />

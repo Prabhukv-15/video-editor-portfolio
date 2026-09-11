@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { CinematicStill } from "@/components/CinematicStill";
-import { type Project, featuredProject, landscapeFilms, projects, site, verticalProjects } from "@/lib/content";
-
-function youtubeSrc(id: string) {
-  return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
-}
+import { type Project, projects, site } from "@/lib/content";
 
 function hasPlayableMedia(project: Project) {
   return Boolean(project.videoSrc || project.youtubeId);
+}
+
+function youtubeSrc(id: string) {
+  return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
 }
 
 function ProjectPlayer({ project, autoPlay = false }: { project: Project; autoPlay?: boolean }) {
@@ -44,48 +44,18 @@ function ProjectPlayer({ project, autoPlay = false }: { project: Project; autoPl
   }
 
   if (project.poster) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src={project.poster} alt={project.title} className="h-full w-full object-cover" />
-    );
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={project.poster} alt={project.title} className="h-full w-full object-cover" />;
   }
 
   return <CinematicStill id={project.id} className="h-full w-full" title={project.title} />;
 }
 
-function ProjectCover({ project }: { project: Project }) {
-  const fit = project.format === "9:16" ? "object-contain bg-black" : "object-cover";
-
-  if (project.poster) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={project.poster}
-        alt=""
-        className={`h-full w-full transition-transform duration-700 group-hover:scale-[1.04] ${fit}`}
-      />
-    );
-  }
-
-  return (
-    <CinematicStill
-      id={project.id}
-      className="h-full w-full transition-transform duration-700 group-hover:scale-[1.04]"
-      title={project.title}
-    />
-  );
-}
+const filmProjects = projects.filter((project) => Boolean(project.videoSrc));
+const moreProjects = projects.filter((project) => !project.videoSrc);
 
 export function Work() {
   const [active, setActive] = useState<Project | null>(null);
-  const verticalIds = new Set(verticalProjects.map((project) => project.id));
-  const landscapeIds = new Set(landscapeFilms.map((project) => project.id));
-  const rest = projects.filter(
-    (project) =>
-      project.id !== featuredProject.id &&
-      !verticalIds.has(project.id) &&
-      !landscapeIds.has(project.id),
-  );
 
   useEffect(() => {
     if (!active) return;
@@ -101,273 +71,152 @@ export function Work() {
   }, [active]);
 
   return (
-    <section id="work" className="relative px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+    <section id="work" className="relative px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
       <div className="mx-auto max-w-[1400px]">
-        <div className="mb-10 flex flex-col gap-4 border-b border-white/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-12 flex flex-col gap-3 border-b border-white/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="timecode text-[11px] tracking-[0.28em] text-gold">Reel 01</p>
-            <h2 className="display mt-3 text-5xl sm:text-7xl">Selected work</h2>
+            <p className="label text-accent">Selected work</p>
+            <h2 className="display mt-3 text-5xl sm:text-7xl">Projects</h2>
           </div>
-          <p className="max-w-md text-sm leading-6 text-paper-dim">{featuredProject.logline}</p>
+          <p className="max-w-md text-sm leading-6 text-paper-dim">
+            Finished films from the timeline — nature, brand, education, and architectural motion.
+          </p>
         </div>
 
-        <article className="overflow-hidden border border-white/10 bg-ink-soft">
-          <div className="relative aspect-video bg-black">
-            <ProjectPlayer project={featuredProject} />
-          </div>
-          <div className="grid gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-10">
-            <div>
-              <p className="timecode text-[11px] tracking-[0.24em] text-gold">
-                {featuredProject.number} · {featuredProject.category} · {featuredProject.runtime} ·{" "}
-                {featuredProject.format}
-              </p>
-              <h3 className="display mt-3 text-5xl sm:text-7xl">{featuredProject.title}</h3>
-              <p className="mt-4 text-lg text-gold-bright">{featuredProject.tagline}</p>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{featuredProject.blurb}</p>
-              {featuredProject.body?.slice(0, 1).map((paragraph) => (
-                <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
-                  {paragraph}{" "}
-                  {featuredProject.question ? <em>{featuredProject.question}</em> : null}
-                </p>
-              ))}
-              {featuredProject.body?.slice(1).map((paragraph) => (
-                <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-            <div className="flex flex-col justify-end gap-6 border-t border-white/10 pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
-              <div>
-                <p className="timecode text-[10px] tracking-[0.2em] text-paper-dim">Role</p>
-                <p className="mt-2 text-sm text-paper">{featuredProject.role}</p>
-              </div>
-              <div>
-                <p className="timecode text-[10px] tracking-[0.2em] text-paper-dim">Finish</p>
-                <p className="mt-2 text-sm text-paper">{featuredProject.grade}</p>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <button
-                  type="button"
-                  className="timecode w-fit border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink hover:bg-gold-bright"
-                  onClick={() => setActive(featuredProject)}
+        <div className="space-y-16 lg:space-y-24">
+          {filmProjects.map((project) => {
+            const vertical = project.format === "9:16";
+            return (
+              <article key={project.id} className="border border-white/10 bg-ink-soft">
+                <div
+                  className={
+                    vertical
+                      ? "mx-auto aspect-[9/16] max-w-[360px] bg-black"
+                      : "relative aspect-video bg-black"
+                  }
                 >
-                  Watch full screen
-                </button>
-                {featuredProject.resourcesUrl ? (
-                  <a
-                    href={featuredProject.resourcesUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="timecode inline-flex items-center border border-paper/20 px-5 py-3 text-[11px] tracking-[0.22em] hover:border-gold hover:text-gold"
-                  >
-                    {featuredProject.resourcesLabel ?? "View resources"}
-                  </a>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </article>
-
-        {landscapeFilms.map((film) => (
-          <article
-            key={film.id}
-            className="mt-8 overflow-hidden border border-white/10 bg-ink-soft"
-          >
-            <div className="relative aspect-video bg-black">
-              <ProjectPlayer project={film} />
-            </div>
-            <div className="grid gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-10">
-              <div>
-                <p className="timecode text-[11px] tracking-[0.24em] text-gold">
-                  {film.number} · {film.category} · {film.runtime} · {film.format}
-                </p>
-                <h3 className="display mt-3 text-5xl sm:text-7xl">{film.title}</h3>
-                {film.tamilLine ? (
-                  <p className="tamil mt-3 text-lg text-gold-bright sm:text-xl">{film.tamilLine}</p>
-                ) : null}
-                <p className="mt-4 text-lg text-gold-bright">{film.tagline}</p>
-                <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{film.blurb}</p>
-                {film.body?.map((paragraph) => (
-                  <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-              <div className="flex flex-col justify-end gap-6 border-t border-white/10 pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
-                <div>
-                  <p className="timecode text-[10px] tracking-[0.2em] text-paper-dim">Role</p>
-                  <p className="mt-2 text-sm text-paper">{film.role}</p>
+                  <ProjectPlayer project={project} />
                 </div>
-                <div>
-                  <p className="timecode text-[10px] tracking-[0.2em] text-paper-dim">Finish</p>
-                  <p className="mt-2 text-sm text-paper">{film.grade}</p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    className="timecode w-fit border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink hover:bg-gold-bright"
-                    onClick={() => setActive(film)}
-                  >
-                    Watch full screen
-                  </button>
-                  {film.resourcesUrl ? (
-                    <a
-                      href={film.resourcesUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="timecode inline-flex items-center border border-paper/20 px-5 py-3 text-[11px] tracking-[0.22em] hover:border-gold hover:text-gold"
-                    >
-                      {film.resourcesLabel ?? "View resources"}
-                    </a>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          </article>
-        ))}
-
-        {verticalProjects.map((verticalProject) => (
-          <article
-            key={verticalProject.id}
-            className="mt-8 overflow-hidden border border-white/10 bg-ink-soft"
-          >
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,280px)_1fr] lg:items-center">
-              <div className="relative mx-auto aspect-[9/16] w-full max-w-[280px] bg-black">
-                <ProjectPlayer project={verticalProject} />
-              </div>
-              <div className="px-5 pb-8 sm:px-8 lg:py-10 lg:pr-10">
-                <p className="timecode text-[11px] tracking-[0.24em] text-gold">
-                  {verticalProject.number} · {verticalProject.category} · {verticalProject.runtime} ·{" "}
-                  {verticalProject.format}
-                </p>
-                <h3 className="display mt-3 text-4xl sm:text-6xl">{verticalProject.title}</h3>
-                <p className="mt-4 text-lg text-gold-bright">{verticalProject.tagline}</p>
-                <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{verticalProject.blurb}</p>
-                {verticalProject.body?.map((paragraph) => (
-                  <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
-                    {paragraph}
-                  </p>
-                ))}
-                <p className="timecode mt-6 text-[11px] tracking-[0.18em] text-gold">
-                  {verticalProject.role}
-                </p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    className="timecode border border-gold/40 bg-gold px-5 py-3 text-[11px] tracking-[0.22em] text-ink hover:bg-gold-bright"
-                    onClick={() => setActive(verticalProject)}
-                  >
-                    Watch full screen
-                  </button>
-                  {verticalProject.resourcesUrl ? (
-                    <a
-                      href={verticalProject.resourcesUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="timecode inline-flex items-center border border-paper/20 px-5 py-3 text-[11px] tracking-[0.22em] hover:border-gold hover:text-gold"
-                    >
-                      {verticalProject.resourcesLabel ?? "View resources"}
-                    </a>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          </article>
-        ))}
-
-        <ul className="mt-8 grid gap-5 md:grid-cols-2">
-          {rest.map((project) => (
-            <li key={project.id}>
-              <button
-                type="button"
-                onClick={() => setActive(project)}
-                className="group w-full text-left"
-              >
-                <article className="relative overflow-hidden border border-white/10 bg-ink-soft">
-                  <div className="relative aspect-video overflow-hidden">
-                    <ProjectCover project={project} />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent" />
-                    <span className="absolute top-4 left-4 timecode text-[11px] tracking-[0.24em] text-gold">
-                      {project.number}
-                    </span>
-                    <span className="absolute top-4 right-4 timecode text-[11px] tracking-[0.2em] text-white/80">
-                      {project.runtime}
-                    </span>
-                    <div className="absolute right-4 bottom-4 flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-sm transition-colors group-hover:border-gold group-hover:text-gold">
-                      <span className="ml-0.5 text-sm">▶</span>
-                    </div>
-                  </div>
-                  <div className="flex items-end justify-between gap-4 px-4 py-4">
-                    <div>
-                      <h3 className="display text-3xl">{project.title}</h3>
-                      <p className="mt-1 text-sm text-paper-dim">{project.category}</p>
-                    </div>
-                    <p className="timecode hidden text-[10px] tracking-[0.16em] text-gold sm:block">
-                      {project.grade}
+                <div className="grid gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[1.3fr_0.7fr] lg:px-10 lg:py-10">
+                  <div>
+                    <p className="label text-accent">
+                      {project.number} · {project.category} · {project.runtime}
+                      {project.format ? ` · ${project.format}` : ""}
                     </p>
+                    <h3 className="display mt-4 text-4xl sm:text-6xl">{project.title}</h3>
+                    {project.tagline ? (
+                      <p className="mt-4 text-lg text-paper">{project.tagline}</p>
+                    ) : null}
+                    <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{project.blurb}</p>
+                    {project.body?.map((paragraph) => (
+                      <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
+                        {paragraph}{" "}
+                        {paragraph === project.body?.[0] && project.question ? (
+                          <em className="text-paper">{project.question}</em>
+                        ) : null}
+                      </p>
+                    ))}
                   </div>
-                </article>
-              </button>
-            </li>
-          ))}
-        </ul>
+                  <div className="flex flex-col justify-end gap-5 border-t border-white/10 pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
+                    {project.role ? (
+                      <div>
+                        <p className="label text-paper-dim">Role</p>
+                        <p className="mt-2 text-sm text-paper">{project.role}</p>
+                      </div>
+                    ) : null}
+                    <div>
+                      <p className="label text-paper-dim">Finish</p>
+                      <p className="mt-2 text-sm text-paper">{project.grade}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-3">
+                      <button
+                        type="button"
+                        className="label bg-accent px-5 py-3 text-white hover:bg-accent-soft"
+                        onClick={() => setActive(project)}
+                      >
+                        Watch fullscreen
+                      </button>
+                      {project.resourcesUrl ? (
+                        <a
+                          href={project.resourcesUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="label inline-flex items-center border border-white/20 px-5 py-3 hover:border-accent hover:text-accent"
+                        >
+                          {project.resourcesLabel ?? "View resources"}
+                        </a>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        {moreProjects.length > 0 ? (
+          <div className="mt-16">
+            <p className="label text-accent">More categories</p>
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+              {moreProjects.map((project) => (
+                <li key={project.id}>
+                  <button
+                    type="button"
+                    onClick={() => setActive(project)}
+                    className="group flex w-full items-center justify-between border border-white/10 bg-ink-lift px-5 py-5 text-left transition-colors hover:border-accent/50"
+                  >
+                    <span>
+                      <span className="label text-paper-dim">{project.number}</span>
+                      <span className="mt-2 block text-xl font-semibold">{project.title}</span>
+                      <span className="mt-1 block text-sm text-paper-dim">{project.category}</span>
+                    </span>
+                    <span className="label text-accent opacity-0 transition-opacity group-hover:opacity-100">
+                      Open
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
 
       {active ? (
         <div
-          className="fixed inset-0 z-[70] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="project-title"
           onClick={() => setActive(null)}
-          role="presentation"
         >
           <div
-            className={`max-h-[90vh] w-full overflow-auto border border-white/15 bg-ink ${
-              active.format === "9:16" ? "max-w-md" : "max-w-4xl"
-            }`}
+            className="max-h-[92vh] w-full max-w-5xl overflow-y-auto border border-white/10 bg-ink-soft"
             onClick={(event) => event.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="project-title"
           >
             <div
-              className={`relative bg-black ${
-                active.format === "9:16" ? "mx-auto aspect-[9/16] max-h-[70vh]" : "aspect-video"
-              }`}
+              className={
+                active.format === "9:16"
+                  ? "mx-auto aspect-[9/16] max-w-[420px] bg-black"
+                  : "aspect-video bg-black"
+              }
             >
               <ProjectPlayer project={active} autoPlay={hasPlayableMedia(active)} />
             </div>
             <div className="px-6 py-6 sm:px-8">
-              <p className="timecode text-[11px] tracking-[0.24em] text-gold">
+              <p className="label text-accent">
                 {active.number} · {active.grade}
               </p>
-              <h3 id="project-title" className="display mt-2 text-4xl sm:text-5xl">
+              <h3 id="project-title" className="display mt-3 text-4xl sm:text-5xl">
                 {active.title}
               </h3>
-              {active.tagline ? (
-                <p className="mt-3 text-lg text-gold-bright">{active.tagline}</p>
-              ) : null}
-              {active.tamilLine ? (
-                <p className="tamil mt-3 text-base text-gold-bright sm:text-lg">{active.tamilLine}</p>
-              ) : null}
+              {active.tagline ? <p className="mt-3 text-lg text-paper">{active.tagline}</p> : null}
               <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{active.blurb}</p>
-              {active.body?.slice(0, 1).map((paragraph) => (
-                <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
-                  {paragraph} {active.question ? <em>{active.question}</em> : null}
-                </p>
-              ))}
-              {active.body?.slice(1).map((paragraph) => (
-                <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
-                  {paragraph}
-                </p>
-              ))}
-              {active.role ? (
-                <p className="timecode mt-4 text-[11px] tracking-[0.18em] text-gold">{active.role}</p>
-              ) : null}
               {active.resourcesUrl ? (
                 <a
                   href={active.resourcesUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="timecode mt-4 inline-flex border border-paper/20 px-4 py-2 text-[11px] tracking-[0.2em] hover:border-gold hover:text-gold"
+                  className="label mt-4 inline-flex border border-white/20 px-4 py-2 hover:border-accent hover:text-accent"
                 >
                   {active.resourcesLabel ?? "View resources"}
                 </a>
@@ -375,7 +224,7 @@ export function Work() {
               {!hasPlayableMedia(active) ? (
                 <p className="mt-4 text-sm text-paper-dim">
                   Full reel on request — write to{" "}
-                  <a className="text-gold underline decoration-gold/40" href={`mailto:${site.email}`}>
+                  <a className="text-accent underline" href={`mailto:${site.email}`}>
                     {site.email}
                   </a>
                   .
@@ -383,7 +232,7 @@ export function Work() {
               ) : null}
               <button
                 type="button"
-                className="timecode mt-6 border border-white/20 px-4 py-2 text-[11px] tracking-[0.2em] hover:border-gold hover:text-gold"
+                className="label mt-6 border border-white/20 px-4 py-2 hover:border-accent hover:text-accent"
                 onClick={() => setActive(null)}
               >
                 Close

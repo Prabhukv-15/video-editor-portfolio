@@ -1,30 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, IBM_Plex_Mono, Instrument_Serif, Noto_Sans_Tamil } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { featuredProject, site } from "@/lib/content";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const body = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
 });
 
-const instrument = Instrument_Serif({
-  variable: "--font-instrument",
+const display = Space_Grotesk({
+  variable: "--font-display",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  weight: ["500", "600", "700"],
 });
 
-const plex = IBM_Plex_Mono({
-  variable: "--font-plex",
+const mono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
-  weight: ["400", "500"],
-});
-
-const tamil = Noto_Sans_Tamil({
-  variable: "--font-tamil",
-  subsets: ["tamil"],
   weight: ["400", "500"],
 });
 
@@ -43,9 +36,11 @@ export const metadata: Metadata = {
     "colorist",
     "DaVinci Resolve",
     "Tamil Nadu",
-    "nature film",
+    "portfolio",
     "Our Earth",
     "Richwood Interior",
+    "Admit Scholar",
+    "Animated House",
     site.name,
   ],
   authors: [{ name: site.name, url: getSiteUrl() }],
@@ -74,7 +69,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#070706",
+  themeColor: "#050505",
   colorScheme: "dark",
 };
 
@@ -90,30 +85,14 @@ const jsonLd = [
       addressRegion: "Tamil Nadu",
       addressCountry: "IN",
     },
-    knowsAbout: [...site.tools, "Video editing", "Color grading", "Nature film"],
+    knowsAbout: [...site.tools, "Video editing", "Color grading"],
     url: getSiteUrl(),
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "VideoObject",
-    name: featuredProject.title,
-    description: featuredProject.logline ?? featuredProject.blurb,
-    thumbnailUrl: `${getSiteUrl()}${featuredProject.poster}`,
-    contentUrl: `${getSiteUrl()}${featuredProject.videoSrc}`,
-    duration: "PT3M24S",
-    creator: {
-      "@type": "Person",
-      name: site.name,
-    },
   },
 ];
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${instrument.variable} ${plex.variable} ${tamil.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${body.variable} ${display.variable} ${mono.variable} h-full antialiased`}>
       <body className="min-h-full bg-ink text-paper">
         <script
           type="application/ld+json"

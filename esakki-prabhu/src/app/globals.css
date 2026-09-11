@@ -1,29 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #070706;
-  --ink-soft: #111110;
-  --paper: #f4efe6;
-  --paper-dim: #cfc6b8;
-  --gold: #c9a36a;
-  --gold-bright: #e8c99a;
-  --rule: rgba(244, 239, 230, 0.12);
-  --danger: #c45c4a;
+  --ink: #050505;
+  --ink-soft: #0e0e0e;
+  --ink-lift: #161616;
+  --paper: #f5f5f5;
+  --paper-dim: #a3a3a3;
+  --accent: #ff2d55;
+  --accent-soft: #ff4d6d;
+  --rule: rgba(255, 255, 255, 0.1);
 }
 
 @theme inline {
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
+  --color-ink-lift: var(--ink-lift);
   --color-paper: var(--paper);
   --color-paper-dim: var(--paper-dim);
-  --color-gold: var(--gold);
-  --color-gold-bright: var(--gold-bright);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-gold: var(--accent);
+  --color-gold-bright: var(--accent-soft);
   --color-rule: var(--rule);
-  --color-danger: var(--danger);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-plex);
-  --font-display: var(--font-instrument);
-  --font-ta: var(--font-tamil);
+  --color-danger: var(--accent);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
 }
 
 * {
@@ -42,8 +44,8 @@ body {
 }
 
 ::selection {
-  background: var(--gold);
-  color: var(--ink);
+  background: var(--accent);
+  color: #fff;
 }
 
 a {
@@ -54,89 +56,38 @@ button {
   font: inherit;
 }
 
-.grain {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  opacity: 0.09;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.vignette {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
-}
-
-.letterbox {
-  pointer-events: none;
-  position: fixed;
-  left: 0;
-  right: 0;
-  height: 14px;
-  z-index: 50;
-  background: #000;
-}
-
-.letterbox-top {
-  top: 0;
-}
-
-.letterbox-bottom {
-  bottom: 0;
-}
-
-.sprocket {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0 18px,
-    rgba(244, 239, 230, 0.16) 18px 26px
-  );
-}
-
 .display {
-  font-family: var(--font-display), "Times New Roman", serif;
-  font-weight: 400;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
   letter-spacing: -0.04em;
-  line-height: 0.88;
+  line-height: 0.9;
+  text-transform: uppercase;
 }
 
-.tamil {
-  font-family: var(--font-ta), sans-serif;
-}
-
-.timecode {
+.label {
   font-family: var(--font-mono), ui-monospace, monospace;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
-.frame-mask {
-  clip-path: inset(0 round 2px);
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
-@keyframes rec-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.25;
-  }
-}
-
-.rec-dot {
-  animation: rec-pulse 1.4s ease-in-out infinite;
+.hero-glow {
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 40%, rgba(255, 45, 85, 0.35), transparent 60%),
+    radial-gradient(ellipse 40% 35% at 20% 80%, rgba(255, 45, 85, 0.12), transparent 55%);
 }
 
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -145,19 +96,33 @@ button {
 }
 
 .rise {
-  animation: rise 0.9s ease both;
+  animation: rise 0.8s ease both;
 }
 
 .rise-2 {
-  animation-delay: 0.12s;
+  animation-delay: 0.1s;
 }
 
 .rise-3 {
-  animation-delay: 0.24s;
+  animation-delay: 0.2s;
 }
 
 .rise-4 {
-  animation-delay: 0.36s;
+  animation-delay: 0.3s;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.rec-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -165,11 +130,11 @@ button {
     scroll-behavior: auto;
   }
 
-  .rec-dot,
   .rise,
   .rise-2,
   .rise-3,
-  .rise-4 {
+  .rise-4,
+  .rec-dot {
     animation: none;
   }
 }

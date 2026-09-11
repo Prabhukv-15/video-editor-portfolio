@@ -5,7 +5,6 @@ export const site = {
   monogram: "EP",
   role: "Video Editor & Colorist",
   tagline: "I cut stories that stay with you.",
-  tamilLine: "கதைக்கு ரிதம். உணர்வுக்கு நிறம்.",
   summary:
     "DaVinci Resolve editor shaping commercials, films, and brand stories — paced for feeling, graded for memory.",
   location: "Tamil Nadu, India",
@@ -39,7 +38,6 @@ export type Project = {
   question?: string;
   role?: string;
   format?: string;
-  tamilLine?: string;
   /** Google Drive (or other) folder with footage, SFX, and edit resources for client review. */
   resourcesUrl?: string;
   resourcesLabel?: string;
@@ -132,7 +130,6 @@ export const projects: Project[] = [
     format: "16:9",
     grade: "Golden hour / pool glow",
     tagline: "A home that wakes as the light falls.",
-    tamilLine: "நீச்சல் குளத்துடன் ஒரு வீடு — வெளிச்சம் வரும்போது உயிர்ப்பு.",
     logline:
       "A 50-second architectural motion piece — villa, pool, and twilight atmosphere built in the edit.",
     blurb:
