@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Anton, Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { featuredProject, site } from "@/lib/content";
 import { getSiteUrl } from "@/lib/site-url";
 import "./globals.css";
@@ -13,6 +13,12 @@ const display = Space_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
+});
+
+const heroDisplay = Anton({
+  variable: "--font-hero",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 const mono = JetBrains_Mono({
@@ -92,7 +98,10 @@ const jsonLd = [
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${body.variable} ${display.variable} ${mono.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${body.variable} ${display.variable} ${heroDisplay.variable} ${mono.variable} h-full antialiased`}
+    >
       <body className="min-h-full bg-ink text-paper">
         <script
           type="application/ld+json"

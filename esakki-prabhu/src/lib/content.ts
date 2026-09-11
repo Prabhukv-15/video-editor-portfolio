@@ -17,7 +17,7 @@ export const site = {
     youtube: "",
     whatsapp: "",
   },
-  heroImage: "/images/hero-workspace.jpg",
+  heroImage: "/images/hero-nle-bg.jpg",
 } as const;
 
 export type Project = {

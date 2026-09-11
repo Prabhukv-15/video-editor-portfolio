@@ -84,6 +84,34 @@ button {
     radial-gradient(ellipse 40% 35% at 20% 80%, rgba(255, 45, 85, 0.12), transparent 55%);
 }
 
+.hero-title {
+  font-family: var(--font-hero), Impact, Haettenschweiler, sans-serif;
+  font-weight: 400;
+  font-size: clamp(4.5rem, 18vw, 11.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.hero-nle-frame {
+  position: relative;
+  height: 100%;
+  transform: perspective(1400px) rotateY(-18deg) rotateX(4deg) rotateZ(-2deg);
+  transform-origin: center right;
+  filter: saturate(1.05) contrast(1.05);
+}
+
+.hero-nle-frame img {
+  mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 100%);
+}
+
+@media (max-width: 640px) {
+  .hero-nle-frame {
+    transform: perspective(900px) rotateY(-12deg) rotateX(2deg);
+    opacity: 0.55;
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;
