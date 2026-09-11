@@ -28,7 +28,7 @@ export function Hero() {
 
       {/* Angled NLE interface — right side */}
       <div
-        className="pointer-events-none absolute top-[8%] right-[-8%] bottom-[6%] w-[68%] sm:right-[-4%] sm:w-[62%] lg:right-[-2%] lg:w-[58%]"
+        className="pointer-events-none absolute top-[-2%] right-[-12%] bottom-[-4%] w-[88%] sm:right-[-8%] sm:w-[82%] lg:right-[-6%] lg:w-[78%]"
         aria-hidden
       >
         <div className="hero-nle-frame h-full w-full">
@@ -36,10 +36,10 @@ export function Hero() {
           <img
             src="/images/hero-nle-bg.jpg"
             alt=""
-            className="h-full w-full scale-[1.05] object-cover object-[30%_40%] opacity-100"
+            className="h-full w-full scale-[1.18] object-cover object-[28%_42%] opacity-100"
           />
-          <div className="absolute inset-0 bg-linear-to-r from-[#070707] via-[#070707]/25 to-transparent" />
-          <div className="absolute inset-0 bg-linear-to-t from-[#070707]/80 via-transparent to-[#070707]/20" />
+          <div className="absolute inset-0 bg-linear-to-r from-[#070707] via-[#070707]/15 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#070707]/55 via-transparent to-[#070707]/10" />
         </div>
       </div>
 
