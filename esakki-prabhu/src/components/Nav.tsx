@@ -4,9 +4,10 @@ import { useState } from "react";
 import { site } from "@/lib/content";
 
 const links = [
-  { href: "#work", label: "Work" },
-  { href: "#services", label: "Services" },
   { href: "#about", label: "About" },
+  { href: "#work", label: "Work" },
+  { href: "#vertical", label: "Vertical" },
+  { href: "#services", label: "Services" },
   { href: "#contact", label: "Contact" },
 ];
 

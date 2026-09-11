@@ -31,26 +31,61 @@ export function Services() {
 
 export function About() {
   return (
-    <section id="about" className="px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
-      <div className="mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-        <div>
-          <p className="label text-accent">About</p>
-          <h2 className="display mt-3 text-5xl sm:text-7xl">The cut, then the look.</h2>
+    <section id="about" className="relative overflow-hidden border-t border-white/10 px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-25"
+        style={{
+          backgroundImage: "radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -right-10 top-10 h-[50%] w-[55%] opacity-80"
+        aria-hidden
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/about-timeline-plate.jpg"
+          alt=""
+          className="h-full w-full scale-110 object-cover object-center opacity-55"
+        />
+        <div className="absolute inset-0 bg-linear-to-l from-transparent via-ink/40 to-ink" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-[1400px]">
+        <h2 className="hero-title text-[clamp(3rem,11vw,7rem)] text-white">About</h2>
+        <div className="mt-8 max-w-3xl space-y-5 text-base leading-7 text-paper-dim sm:text-lg">
+          <p>
+            The following projects were developed as finished client and personal films, marking my
+            work as a <strong className="text-white">Video Editor and Colorist</strong>. These pieces
+            reflect a core philosophy where{" "}
+            <strong className="text-white">sharp aesthetics, precise sound design, and high dynamism</strong>{" "}
+            work together to amplify storytelling.
+          </p>
+          <p>
+            By aligning <strong className="text-white">strategic editing</strong> with color and
+            motion craft, the final visual becomes the key element to{" "}
+            <strong className="text-white">capture and hold the viewer&apos;s attention</strong>.
+          </p>
+          <p>
+            I&apos;m {site.name}, based in {site.location}. DaVinci Resolve is home base — timeline,
+            grade, and delivery in one suite.
+          </p>
         </div>
-        <div className="space-y-5 text-base leading-7 text-paper-dim">
-          <p>
-            I&apos;m {site.name}, a video editor and colorist working out of {site.location}. Footage
-            arrives as coverage. My job is to leave with a story — one that holds on Instagram, on a
-            client screen, and in a review bay.
-          </p>
-          <p>
-            DaVinci Resolve is home base: timeline, color, and delivery in one suite. I grade for skin
-            first, then for mood. I cut for breath, not for trend.
-          </p>
-          <p>
-            If you have a showreel, a campaign, or a brand film that needs a finishing hand, send the
-            brief. I&apos;ll tell you honestly whether I&apos;m the right cut.
-          </p>
+
+        <div className="mt-14">
+          <h3 className="hero-title text-[clamp(2.2rem,7vw,4.5rem)] text-white">Softwares</h3>
+          <ul className="mt-6 flex flex-wrap gap-4">
+            {["DaVinci Resolve", "After Effects", "Premiere Pro", "Audition"].map((tool) => (
+              <li
+                key={tool}
+                className="rounded-2xl border border-white/15 bg-white/5 px-5 py-4 text-sm font-medium text-white backdrop-blur-sm"
+              >
+                {tool}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

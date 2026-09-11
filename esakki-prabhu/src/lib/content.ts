@@ -72,8 +72,31 @@ export const projects: Project[] = [
     resourcesLabel: "View resources",
   },
   {
-    id: "richwood",
+    id: "animated-house",
     number: "02",
+    title: "Animated House",
+    category: "Architectural motion",
+    runtime: "00:50",
+    format: "16:9",
+    grade: "Golden hour / pool glow · 4K",
+    tagline: "A home that wakes as the light falls.",
+    logline:
+      "A 50-second architectural motion piece — villa, pool, and twilight atmosphere built in the edit.",
+    blurb:
+      "An animated house film for lifestyle and real-estate mood — warm interiors, turquoise pool, and a sky that holds the last light.",
+    body: [
+      "The cut lets the villa breathe: exterior stills become motion, water holds the reflection, and the grade keeps dusk warm without washing the pool.",
+      "Edited and mixed in DaVinci Resolve — picture, atmosphere, and sound beds for a home that feels lived-in before anyone steps inside.",
+    ],
+    role: "Editor · Motion · Color · Sound",
+    videoSrc: "/videos/animated-house.mp4",
+    poster: "/videos/animated-house-poster.jpg",
+    youtubeId: "",
+    resourcesLabel: "View resources",
+  },
+  {
+    id: "richwood",
+    number: "03",
     title: "Richwood Interior",
     category: "Brand film",
     runtime: "01:12",
@@ -98,7 +121,7 @@ export const projects: Project[] = [
   },
   {
     id: "admit-scholar",
-    number: "03",
+    number: "04",
     title: "Admit Scholar",
     category: "Education brand reel",
     runtime: "00:43",
@@ -119,29 +142,6 @@ export const projects: Project[] = [
     youtubeId: "",
     resourcesUrl:
       "https://drive.google.com/file/d/1b9Fdm5S8Jz2mZzoRserR98RWF-dVH-PW/view?usp=sharing",
-    resourcesLabel: "View resources",
-  },
-  {
-    id: "animated-house",
-    number: "04",
-    title: "Animated House",
-    category: "Architectural motion",
-    runtime: "00:50",
-    format: "16:9",
-    grade: "Golden hour / pool glow",
-    tagline: "A home that wakes as the light falls.",
-    logline:
-      "A 50-second architectural motion piece — villa, pool, and twilight atmosphere built in the edit.",
-    blurb:
-      "An animated house film for lifestyle and real-estate mood — warm interiors, turquoise pool, and a sky that holds the last light.",
-    body: [
-      "The cut lets the villa breathe: exterior stills become motion, water holds the reflection, and the grade keeps dusk warm without washing the pool.",
-      "Edited and mixed in DaVinci Resolve — picture, atmosphere, and sound beds for a home that feels lived-in before anyone steps inside.",
-    ],
-    role: "Editor · Motion · Color · Sound",
-    videoSrc: "/videos/animated-house.mp4",
-    poster: "/videos/animated-house-poster.jpg",
-    youtubeId: "",
     resourcesLabel: "View resources",
   },
   {
@@ -191,11 +191,15 @@ export const projects: Project[] = [
 ];
 
 export const featuredProject = projects.find((project) => project.featured) ?? projects[0];
-export const verticalProjects = projects.filter((project) => project.format === "9:16");
-export const landscapeFilms = projects.filter(
-  (project) => project.format === "16:9" && Boolean(project.videoSrc) && !project.featured,
+export const horizontalVideos = projects.filter(
+  (project) => Boolean(project.videoSrc) && project.format === "16:9",
 );
-/** @deprecated Prefer verticalProjects — kept for any leftover single-project usage */
+export const verticalVideos = projects.filter(
+  (project) => Boolean(project.videoSrc) && project.format === "9:16",
+);
+export const verticalProjects = verticalVideos;
+export const landscapeFilms = horizontalVideos.filter((project) => !project.featured);
+/** @deprecated Prefer verticalProjects */
 export const verticalProject = verticalProjects[0];
 
 export const services = [

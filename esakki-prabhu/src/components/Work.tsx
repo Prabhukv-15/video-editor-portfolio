@@ -2,14 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { CinematicStill } from "@/components/CinematicStill";
-import { type Project, projects, site } from "@/lib/content";
+import { type Project, horizontalVideos, site, verticalVideos } from "@/lib/content";
 
 function hasPlayableMedia(project: Project) {
   return Boolean(project.videoSrc || project.youtubeId);
-}
-
-function youtubeSrc(id: string) {
-  return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
 }
 
 function ProjectPlayer({ project, autoPlay = false }: { project: Project; autoPlay?: boolean }) {
@@ -31,18 +27,6 @@ function ProjectPlayer({ project, autoPlay = false }: { project: Project; autoPl
     );
   }
 
-  if (project.youtubeId) {
-    return (
-      <iframe
-        title={project.title}
-        src={youtubeSrc(project.youtubeId)}
-        className="h-full w-full"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-    );
-  }
-
   if (project.poster) {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={project.poster} alt={project.title} className="h-full w-full object-cover" />;
@@ -51,8 +35,53 @@ function ProjectPlayer({ project, autoPlay = false }: { project: Project; autoPl
   return <CinematicStill id={project.id} className="h-full w-full" title={project.title} />;
 }
 
-const filmProjects = projects.filter((project) => Boolean(project.videoSrc));
-const moreProjects = projects.filter((project) => !project.videoSrc);
+function SectionHeader({ title, subtitle }: { title: string; subtitle: string }) {
+  return (
+    <div className="mb-10 text-center sm:mb-14">
+      <h2 className="hero-title text-[clamp(2.8rem,10vw,6.5rem)] text-white">{title}</h2>
+      <p className="mt-3 text-sm text-white/70 sm:text-base">{subtitle}</p>
+    </div>
+  );
+}
+
+function ProjectMeta({
+  project,
+  onOpen,
+}: {
+  project: Project;
+  onOpen: () => void;
+}) {
+  return (
+    <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p className="label text-accent">
+          {project.number} · {project.category} · {project.runtime}
+        </p>
+        <h3 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">{project.title}</h3>
+        {project.tagline ? <p className="mt-2 max-w-2xl text-paper-dim">{project.tagline}</p> : null}
+      </div>
+      <div className="flex flex-wrap gap-3">
+        <button
+          type="button"
+          className="label bg-accent px-5 py-3 text-white hover:bg-accent-soft"
+          onClick={onOpen}
+        >
+          Watch fullscreen
+        </button>
+        {project.resourcesUrl ? (
+          <a
+            href={project.resourcesUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="label inline-flex items-center border border-white/20 px-5 py-3 hover:border-accent hover:text-accent"
+          >
+            {project.resourcesLabel ?? "View resources"}
+          </a>
+        ) : null}
+      </div>
+    </div>
+  );
+}
 
 export function Work() {
   const [active, setActive] = useState<Project | null>(null);
@@ -71,115 +100,81 @@ export function Work() {
   }, [active]);
 
   return (
-    <section id="work" className="relative px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
-      <div className="mx-auto max-w-[1400px]">
-        <div className="mb-12 flex flex-col gap-3 border-b border-white/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="label text-accent">Selected work</p>
-            <h2 className="display mt-3 text-5xl sm:text-7xl">Projects</h2>
-          </div>
-          <p className="max-w-md text-sm leading-6 text-paper-dim">
-            Finished films from the timeline — nature, brand, education, and architectural motion.
-          </p>
-        </div>
+    <>
+      <section
+        id="work"
+        className="relative overflow-hidden border-t border-white/10 px-5 py-20 sm:px-8 lg:px-12 lg:py-28"
+      >
+        <div
+          className="pointer-events-none absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: "radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -left-20 top-0 h-64 w-64 rounded-full opacity-70 blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(255,45,85,0.35), transparent 70%)" }}
+          aria-hidden
+        />
 
-        <div className="space-y-16 lg:space-y-24">
-          {filmProjects.map((project) => {
-            const vertical = project.format === "9:16";
-            return (
-              <article key={project.id} className="border border-white/10 bg-ink-soft">
-                <div
-                  className={
-                    vertical
-                      ? "mx-auto aspect-[9/16] max-w-[360px] bg-black"
-                      : "relative aspect-video bg-black"
-                  }
-                >
-                  <ProjectPlayer project={project} />
-                </div>
-                <div className="grid gap-8 px-5 py-8 sm:px-8 lg:grid-cols-[1.3fr_0.7fr] lg:px-10 lg:py-10">
-                  <div>
-                    <p className="label text-accent">
-                      {project.number} · {project.category} · {project.runtime}
-                      {project.format ? ` · ${project.format}` : ""}
-                    </p>
-                    <h3 className="display mt-4 text-4xl sm:text-6xl">{project.title}</h3>
-                    {project.tagline ? (
-                      <p className="mt-4 text-lg text-paper">{project.tagline}</p>
-                    ) : null}
-                    <p className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">{project.blurb}</p>
-                    {project.body?.map((paragraph) => (
-                      <p key={paragraph} className="mt-4 max-w-2xl text-base leading-7 text-paper-dim">
-                        {paragraph}{" "}
-                        {paragraph === project.body?.[0] && project.question ? (
-                          <em className="text-paper">{project.question}</em>
-                        ) : null}
-                      </p>
-                    ))}
-                  </div>
-                  <div className="flex flex-col justify-end gap-5 border-t border-white/10 pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
-                    {project.role ? (
-                      <div>
-                        <p className="label text-paper-dim">Role</p>
-                        <p className="mt-2 text-sm text-paper">{project.role}</p>
-                      </div>
-                    ) : null}
-                    <div>
-                      <p className="label text-paper-dim">Finish</p>
-                      <p className="mt-2 text-sm text-paper">{project.grade}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-3">
-                      <button
-                        type="button"
-                        className="label bg-accent px-5 py-3 text-white hover:bg-accent-soft"
-                        onClick={() => setActive(project)}
-                      >
-                        Watch fullscreen
-                      </button>
-                      {project.resourcesUrl ? (
-                        <a
-                          href={project.resourcesUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="label inline-flex items-center border border-white/20 px-5 py-3 hover:border-accent hover:text-accent"
-                        >
-                          {project.resourcesLabel ?? "View resources"}
-                        </a>
-                      ) : null}
-                    </div>
+        <div className="relative z-10 mx-auto max-w-[1400px]">
+          <SectionHeader
+            title="Horizontal Videos"
+            subtitle="Horizontal Videos – YouTube – Longform"
+          />
+
+          <div className="space-y-14">
+            {horizontalVideos.map((project) => (
+              <article key={project.id}>
+                <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#121212]">
+                  <div className="aspect-video bg-black">
+                    <ProjectPlayer project={project} />
                   </div>
                 </div>
+                <ProjectMeta project={project} onOpen={() => setActive(project)} />
               </article>
-            );
-          })}
-        </div>
-
-        {moreProjects.length > 0 ? (
-          <div className="mt-16">
-            <p className="label text-accent">More categories</p>
-            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-              {moreProjects.map((project) => (
-                <li key={project.id}>
-                  <button
-                    type="button"
-                    onClick={() => setActive(project)}
-                    className="group flex w-full items-center justify-between border border-white/10 bg-ink-lift px-5 py-5 text-left transition-colors hover:border-accent/50"
-                  >
-                    <span>
-                      <span className="label text-paper-dim">{project.number}</span>
-                      <span className="mt-2 block text-xl font-semibold">{project.title}</span>
-                      <span className="mt-1 block text-sm text-paper-dim">{project.category}</span>
-                    </span>
-                    <span className="label text-accent opacity-0 transition-opacity group-hover:opacity-100">
-                      Open
-                    </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
+            ))}
           </div>
-        ) : null}
-      </div>
+        </div>
+      </section>
+
+      <section
+        id="vertical"
+        className="relative overflow-hidden border-t border-white/10 px-5 py-20 sm:px-8 lg:px-12 lg:py-28"
+      >
+        <div
+          className="pointer-events-none absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: "radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-16 top-10 h-72 w-72 rounded-full opacity-70 blur-3xl"
+          style={{ background: "radial-gradient(circle, rgba(255,45,120,0.4), transparent 70%)" }}
+          aria-hidden
+        />
+
+        <div className="relative z-10 mx-auto max-w-[1400px]">
+          <SectionHeader title="Vertical Videos" subtitle="Vertical Videos – Shorts – Reels" />
+
+          <div className="grid gap-10 md:grid-cols-2 lg:gap-12">
+            {verticalVideos.map((project) => (
+              <article key={project.id} className="mx-auto w-full max-w-[420px]">
+                <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#121212]">
+                  <div className="aspect-[9/16] bg-black">
+                    <ProjectPlayer project={project} />
+                  </div>
+                </div>
+                <ProjectMeta project={project} onOpen={() => setActive(project)} />
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {active ? (
         <div
@@ -206,7 +201,7 @@ export function Work() {
               <p className="label text-accent">
                 {active.number} · {active.grade}
               </p>
-              <h3 id="project-title" className="display mt-3 text-4xl sm:text-5xl">
+              <h3 id="project-title" className="mt-3 text-3xl font-semibold sm:text-4xl">
                 {active.title}
               </h3>
               {active.tagline ? <p className="mt-3 text-lg text-paper">{active.tagline}</p> : null}
@@ -241,6 +236,6 @@ export function Work() {
           </div>
         </div>
       ) : null}
-    </section>
+    </>
   );
 }
