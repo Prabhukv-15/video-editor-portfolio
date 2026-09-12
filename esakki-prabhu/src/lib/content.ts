@@ -77,7 +77,7 @@ export const projects: Project[] = [
     question: "this was always our home. Did we forget?",
     role: "Editor · Sound · Titles · Mix",
     videoSrc: "/videos/our-earth.mp4",
-    poster: "/videos/our-earth-poster.jpg",
+    poster: "/videos/our-earth-poster.jpg?v=2",
     featured: true,
     youtubeId: "",
     resourcesUrl:
@@ -217,7 +217,7 @@ export const projects: Project[] = [
     ],
     role: "AI generation · Grade · Loop finish",
     videoSrc: "/videos/ai-villa.mp4",
-    poster: "/videos/ai-villa-poster.jpg",
+    poster: "/videos/ai-villa-poster.jpg?v=2",
     youtubeId: "",
     aiGenerated: true,
     loop: true,
