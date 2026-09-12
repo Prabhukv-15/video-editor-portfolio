@@ -19,7 +19,7 @@ function ProjectPlayer({ project, autoPlay = false }: { project: Project; autoPl
         poster={project.poster}
         controls
         playsInline
-        preload="metadata"
+        preload="none"
         autoPlay={autoPlay}
       >
         Your browser does not support video playback.

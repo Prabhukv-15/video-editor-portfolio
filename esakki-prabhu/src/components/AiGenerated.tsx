@@ -14,10 +14,10 @@ function AiPlayer({ project, autoPlay = false }: { project: Project; autoPlay?: 
       poster={project.poster}
       controls
       playsInline
-      preload="metadata"
+      preload="none"
       loop={loop}
-      muted={loop}
-      autoPlay={autoPlay || loop}
+      muted={autoPlay && loop}
+      autoPlay={autoPlay}
     >
       Your browser does not support video playback.
     </video>
